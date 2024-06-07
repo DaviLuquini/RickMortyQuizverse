@@ -1,0 +1,99 @@
+body {
+  background-image: url("/css/Assets/rickMortyWallpaper1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 20px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.containerLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.title {
+  max-width: 550px;
+  margin-top: 30px;
+  position: relative;
+  left: 150px;
+}
+
+.logo {
+  max-width: 300px;
+  margin-top: 270px;
+  position: relative;
+  right: 290px;
+}
+
+.button-goBack {
+  display: block;
+  width: 70px;
+  height: 20px;
+  top: 180px;
+  position: relative;
+  left: 320px;
+  cursor: pointer;
+
+  color: white; 
+  font-size: 16px;
+  text-decoration: underline;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+.register-container {
+  width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 0 auto;
+  margin-top: 140px;
+}
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.form-group {
+  flex: 1;
+  margin-right: 10px;
+}
+.form-group:last-child {
+  margin-right: 0;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.show-password {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 5px;
+  width: 30px; 
+  height: auto; 
+}
+
+.btn-register {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+.btn-register:hover {
+  background-color: #45a049;
+}

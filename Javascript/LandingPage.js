@@ -1,0 +1,507 @@
+import { calculateGamePoints } from './UserPoints.js';
+
+var availableCharacters = [];
+var correctCharacter;
+var randomCharacter;
+var usedCharacters = [];
+var gameMode;
+let tries = 0;
+let gamePoints = 0;
+let remainingTries = 0;
+
+function getNameQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+const username = getNameQueryParam('username');
+
+if (username) {
+    document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
+}
+
+async function getAllCharactersApi() {
+    const allCharacters = [];
+    const totalPages = 42;
+
+    for (let page = 1; page <= totalPages; page++) {
+        try {
+            const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
+            const data = await response.json(); 
+
+            const characters = data.results.map(characterData => {
+                const location = characterData.location ? new Location(characterData.location.name, characterData.location.url) : null;
+                const origin = characterData.origin ? new Origin(characterData.origin.name, characterData.origin.url) : null;
+                const info = new Info(null, null, null, null); 
+                const character = new Character(
+                    characterData.id,
+                    characterData.name,
+                    characterData.status,
+                    characterData.species,
+                    characterData.type,
+                    characterData.gender,
+                    origin,
+                    location,
+                    characterData.image,
+                    characterData.episode,
+                    characterData.url,
+                    characterData.created
+                );
+                return {
+                    name: characterData.name,
+                    id: characterData.id,
+                    image: characterData.image,
+                    gender: characterData.gender,
+                    origin: origin ? origin.name : null,
+                    status: characterData.status,
+                    species: characterData.species,
+                    location: location ? location.name : null
+                };
+            });
+
+            allCharacters.push(...characters);
+        } catch (error) {
+            console.error(`Error fetching characters from page ${page}:`, error);
+        }
+    }
+
+    return allCharacters;
+}
+
+
+    function getCorrectCharacter() {
+        const randomIndex = Math.floor(Math.random() * availableCharacters.length);
+        correctCharacter = availableCharacters[randomIndex];
+      
+        return correctCharacter;
+    }
+
+    function getRandomCharacters(characters, count) {
+        const randomCharacters = [];
+        const shuffledCharacters = characters.sort(() => Math.random() - 0.5); 
+    
+        for (let i = 0; i < count; i++) {
+            randomCharacters.push(shuffledCharacters[i]); 
+        }
+    
+        return randomCharacters;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const easyMode = document.getElementById('easy-mode');
+        const mediumMode = document.getElementById('medium-mode');
+        const hardMode = document.getElementById('hard-mode');
+        const impossibleMode = document.getElementById('impossible-mode');
+
+        easyMode.addEventListener('click', function() {
+            gameMode = 'easy';
+            initializeAvailableCharacters(gameMode);
+        });
+    
+        mediumMode.addEventListener('click', function() {
+            gameMode = 'medium';
+            initializeAvailableCharacters(gameMode);
+        });
+    
+        hardMode.addEventListener('click', function() {
+            gameMode = 'hard';
+            initializeAvailableCharacters(gameMode);
+        });
+    
+        impossibleMode.addEventListener('click', function() {
+            gameMode = 'impossible';
+            initializeAvailableCharacters(gameMode);
+        });
+    });
+
+    async function initializeAvailableCharacters(gameMode) {
+        const characters = await getAllCharactersApi();
+
+        availableCharacters.length = 0; 
+        const principalCharacters = [];
+    
+        for (const character of characters) {
+            if ([1, 2, 3, 4, 5].includes(character.id)) {
+                principalCharacters.push(character);
+            }
+        }
+    
+        if (gameMode === 'easy') {
+            var randomCharacters = getRandomCharacters(characters, 15); 
+            availableCharacters.push(...principalCharacters);
+            availableCharacters.push(...randomCharacters); 
+        } else if (gameMode === 'medium') {
+            var randomCharacters = getRandomCharacters(characters, 45); 
+            availableCharacters.push(...principalCharacters);
+            availableCharacters.push(...randomCharacters); 
+        } else if (gameMode === 'hard') {
+            var randomCharacters = getRandomCharacters(characters, 95); 
+            availableCharacters.push(...principalCharacters);
+            availableCharacters.push(...randomCharacters); 
+        } else if (gameMode === 'impossible') {
+            availableCharacters.push(...characters); 
+        } else {
+            throw new Error('Modo de jogo inválido.');
+        }
+    
+        getCorrectCharacter();
+        console.log(correctCharacter.name);
+    }
+
+    async function updateAvailableCharacters(character) {
+        const characterId = character.id; 
+        const index = availableCharacters.findIndex(item => item.id === characterId);
+        if (index !== -1) {
+            availableCharacters.splice(index, 1);
+        }
+    }
+
+    $(function() {
+        $("#searchInput").autocomplete({
+            source: function(request, response) {
+                var filtered = $.map(availableCharacters, function(item) {
+                    if (item.name.toLowerCase().startsWith(request.term.toLowerCase())) {
+                        return {
+                            name: item.name,
+                            id: item.id,
+                            image: item.image
+                        };
+                    }
+                });
+                response(filtered);
+            },
+            search: function(event, ui) {
+                $("#searchInput").addClass('image');
+            },
+            select: function(event, ui) {
+                $("#searchInput").removeClass('image');
+                updateBoxes(ui.item.id);
+            },
+            open: function(event, ui) {
+                $(".ui-menu-item").each(function(index) {
+                    var item = ui.item;
+                    $(this).html("<img src='" + item.image + "' style='width: 302px; height: 30px; margin-right: 10px;' />" + item.name);
+                });
+            }
+        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            return $("<li>")
+                .append("<div><img src='" + item.image + "' style='width: 80px; height: 80px; margin-right: 10px;' />" + item.name + "</div>")
+                .appendTo(ul);
+        };
+    });
+    
+    document.getElementById('searchInput').addEventListener('keyup', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            updateBoxes(this.value); 
+        }
+    });
+
+  window.onload = function () {
+    const buttonGame = document.querySelector('.button-game');
+    const buttonGameProgress = document.querySelector('.button-game-progress');
+    const buttonSearch = document.querySelector('.button-search');
+    const buttonBack = document.querySelector('.button-goBack');
+    const gameModes = document.querySelector('.game-modes-container');
+    const hintBox = document.querySelector('.hintBox');
+    const gamePoints = document.getElementById('gamePoints')
+
+    const easyMode = document.getElementById('easy-mode')
+    const mediumMode = document.getElementById('medium-mode')
+    const hardMode = document.getElementById('hard-mode')
+    const impossibleMode = document.getElementById('impossible-mode')
+
+    const hintBall1 = document.querySelector('.hint-ball-2');
+    const hintBall2 = document.querySelector('.hint-ball-2');
+
+    buttonGame.addEventListener('click', function () {
+        gameModes.style.display = 'flex';
+        buttonBack.style.display = 'block';
+        buttonGame.style.display = 'none';
+        buttonGameProgress.style.display = 'none';
+    });
+
+    gameModes.addEventListener('click', function () {
+        gameModes.style.display = 'none';
+        buttonSearch.style.display = 'block';
+        gamePoints.style.display = 'block';
+        document.getElementById('gamePoints').innerText = `Your Points: 100`;
+    });
+
+    buttonBack.addEventListener('click', function () {
+        buttonSearch.style.display = 'none';
+        buttonBack.style.display = 'none';
+        gameModes.style.display = 'none';
+        hintBox.style.display = 'none';
+        buttonGame.style.display = 'block';
+        buttonGameProgress.style.display = 'block';
+        gamePoints.style.display = 'none';
+
+        $('.boxContainer').remove();
+        usedCharacters = [];
+        tries = 0;
+        remainingTries = 0;
+        updateFirstLetterTriesText(firstLetterTries, tries);
+        updateImageClueTriesText(imageClueTries, tries);
+
+        if(handleHintBallAction1Called || handleHintBallAction2Called) {
+            location.reload();
+        }
+    });
+
+    easyMode.addEventListener('click', function () {
+        hintBox.style.display = 'flex';
+    });
+
+    mediumMode.addEventListener('click', function () {
+        hintBox.style.display = 'flex';
+    });
+
+    hardMode.addEventListener('click', function () {
+        hintBox.style.display = 'flex';
+    });
+
+    impossibleMode.addEventListener('click', function () {
+        hintBox.style.display = 'flex';
+    });
+
+   
+};
+
+async function addCharacter(character) {
+
+    if (!usedCharacters.includes(character)) {
+        usedCharacters.push(character);
+    }
+
+    await updateAvailableCharacters(character);
+}
+
+let firstLetterTries = 6;
+let imageClueTries = 10;
+let firstLetterTriesUsed = 0;
+let imageClueTriesUsed = 0;
+let handleHintBallAction1Called = false;
+let handleHintBallAction2Called = false;
+
+async function updateFirstLetterTriesText(startingTries, tries) {
+    const triesElement = document.querySelector('.first-letter-tries-text');
+    const remainingTries = startingTries - tries;
+    if(remainingTries >= 0) {
+        triesElement.innerHTML = `<strong> In ${remainingTries} tries </strong>`;
+    }
+    if(remainingTries <= 0) {
+        handleHintBallAction1();
+        return;
+    }
+}
+
+async function updateImageClueTriesText(startingTries, tries) {
+    const triesElement = document.querySelector('.image-clue-tries-text');
+    const remainingTries = startingTries - tries;
+    if(remainingTries >= 0) {
+        triesElement.innerHTML = `<strong> In ${remainingTries} tries </strong>`;
+    }
+    if(remainingTries <= 0) {
+        handleHintBallAction2();
+        return;
+    }
+}
+
+function handleHintBallAction1() {
+    const hintBall1 = document.querySelector('.hint-ball-1');
+    hintBall1.style.backgroundColor = 'green';
+
+    function handleClick() {
+        handleHintBallAction1Called = true;
+        hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
+        hintBall1.removeEventListener('click', handleClick);
+    }
+
+    hintBall1.addEventListener('click', handleClick);
+}
+
+function handleHintBallAction2() {
+    const hintBall2 = document.querySelector('.hint-ball-2');
+    hintBall2.style.backgroundColor = 'green';
+
+    function handleClick() {
+        handleHintBallAction2Called = true;
+        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        hintBall2.removeEventListener('click', handleClick);
+    }
+
+    hintBall2.addEventListener('click', handleClick);
+}
+
+function adjustFontSize(element, text) {
+    if (text.length > 13) {
+        element.css("font-size", "12px");
+    } else if (text.length >= 12) {
+        element.css("font-size", "14px");
+    } else if (text.length >= 10) {
+        element.css("font-size", "16px");
+    } else if (text.length >= 7) {
+        element.css("font-size", "18px");
+    } else {
+        element.css("font-size", "20px"); 
+    }
+}
+
+async function updateBoxes(id) { 
+    tries++;
+    gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+    document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+    
+    await updateFirstLetterTriesText(firstLetterTries, tries);
+    await updateImageClueTriesText(imageClueTries, tries);
+
+    const buttonBack = document.querySelector('.button-goBack');
+    const buttonSearch = document.querySelector('.button-search');
+
+    const character = availableCharacters.find(char => char.id === id);
+
+    for (let i = 0; i < usedCharacters.length; i++) {
+        if(character == usedCharacters[i]) {
+            alert("Personagem ja adicionado na lista.");
+            return;
+        } 
+    }
+     if (character) {
+        addCharacter(character);
+
+        const capitalizeFirstLetter = (string) => {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        };
+
+        const newBoxContainer = $("<div class='boxContainer'></div>");
+
+        const boxImage = $(`<div class='box' id='boxImage'></div>`);
+        boxImage.append(`<div class='box-header'>Image</div><div class='box-content'><img src="${character.image}" alt="${character.name}" style="width: 80px; height: 80px; margin-top: 18px;"></div>`);
+        newBoxContainer.append(boxImage);
+
+        const boxStatus = $(`<div class='box' id='boxStatus'></div>`);
+        boxStatus.append(`<div class='box-header'>Status</div><div class='box-content'>${capitalizeFirstLetter(character.status)}</div>`);
+        newBoxContainer.append(boxStatus);
+
+        const boxSpecies = $(`<div class='box' id='boxSpecies'></div>`);
+        boxSpecies.append(`<div class='box-header'>Species</div><div class='box-content'>${capitalizeFirstLetter(character.species)}</div>`);
+        newBoxContainer.append(boxSpecies);
+
+        const boxGender = $(`<div class='box' id='boxGender'></div>`);
+        boxGender.append(`<div class='box-header'>Gender</div><div class='box-content'>${capitalizeFirstLetter(character.gender)}</div>`);
+        newBoxContainer.append(boxGender);
+
+        const boxOrigin = $(`<div class='box' id='boxOrigin'></div>`);
+        boxOrigin.append(`<div class='box-header'>Origin</div><div class='box-content'style='font-size: 14px;'>${capitalizeFirstLetter(character.origin)}</div>`);
+        newBoxContainer.append(boxOrigin);
+
+        const boxLocation = $(`<div class='box' id='boxLocation'></div>`);
+        boxLocation.append(`<div class='box-header'>Location</div><div class='box-content'style='font-size: 14px;'>${capitalizeFirstLetter(character.location)}</div>`);
+        newBoxContainer.append(boxLocation);
+
+        const boxCorrect = $(`<div class='box' id='boxCorrect'></div>`);
+        boxCorrect.append(`<div class='box-header'>Correct?</div><div class='box-content' style='font-size: 20px;'>${capitalizeFirstLetter(character.name)}</div>`);;
+        newBoxContainer.append(boxCorrect);
+
+        if (character.status === correctCharacter.status) {
+            boxStatus.css("background-color", "green");
+        } else {
+            boxStatus.css("background-color", "red");          
+        }
+        adjustFontSize(boxStatus.find('.box-content'), character.status);
+        
+        if (character.species === correctCharacter.species) {
+            boxSpecies.css("background-color", "green");
+        } else {
+            boxSpecies.css("background-color", "red");
+        }
+        adjustFontSize(boxSpecies.find('.box-content'), character.species);
+        
+        if (character.gender === correctCharacter.gender) {
+            boxGender.css("background-color", "green");
+        } else {
+            boxGender.css("background-color", "red");
+        }
+        adjustFontSize(boxGender.find('.box-content'), character.gender);
+        
+        if (character.location === correctCharacter.location) {
+            boxLocation.css("background-color", "green");
+        } else {
+            boxLocation.css("background-color", "red");
+        }
+        adjustFontSize(boxLocation.find('.box-content'), character.location);
+        
+        if (character.origin === correctCharacter.origin) {
+            boxOrigin.css("background-color", "green");
+        } else {
+            boxOrigin.css("background-color", "red");
+        }
+        adjustFontSize(boxOrigin.find('.box-content'), character.origin);
+
+
+        if (character.id === correctCharacter.id) {
+            boxCorrect.css("background-color", "green");
+            boxCorrect.find('.box-content').text('Correct');     
+
+            buttonSearch.style.display = 'none';
+            buttonBack.style.display = 'none';
+
+            newBoxContainer.prependTo("#characterBlocks");
+            showCongrats(character, newBoxContainer);     
+        } else {
+            boxCorrect.css("background-color", "red");
+            boxCorrect.find('.box-content').text('Incorrect').css('font-size', '18px');          
+        }
+
+        newBoxContainer.css("display", "flex");
+        newBoxContainer.prependTo("#characterBlocks");
+
+    } else {
+        alert("Personagem não encontrado na lista.");
+  }
+}
+
+
+function showCongrats(character, referenceElement) {
+
+    const congratsBlock = document.createElement('div');
+    congratsBlock.classList.add('congrats-block');
+    
+    const h1 = document.createElement('h1');
+    h1.textContent = 'Congratz!';
+    
+    const p1 = document.createElement('p');
+    p1.textContent = 'You guessed ';
+    
+    const strong = document.createElement('strong');
+    strong.textContent = (character.name); 
+    
+    p1.appendChild(strong);
+    
+    const p2 = document.createElement('p');
+    p2.textContent = 'You are the 1st to find the character today';
+    
+    const p3 = document.createElement('p');
+    p3.innerHTML = 'Number of tries: <strong>' + tries + '</strong>';
+    
+    const p4 = document.createElement('p');
+    p4.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points';
+
+    const p5 = document.createElement('p');
+    p5.innerHTML = '<strong>Tap to play again!</strong>';
+    
+    congratsBlock.appendChild(h1);
+    congratsBlock.appendChild(p1);
+    congratsBlock.appendChild(p2);
+    congratsBlock.appendChild(p3);
+    congratsBlock.appendChild(p4);
+    congratsBlock.appendChild(p5);
+
+    congratsBlock.addEventListener('click', function() {
+        location.reload();
+    });
+
+    $(referenceElement).after(congratsBlock);
+}

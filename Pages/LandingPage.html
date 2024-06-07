@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>RickMortyQuizVerse</title>
+    <base href="/" />
+    <link href="css/LandingPage.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+    <link rel="icon" href="/css/Assets/rickmortyIcon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <script src="Javascript/Characters.js"></script>
+
+    <div class="containerLogo">
+        <img class="title" src="/css/Assets/rickMortyTitle.png" alt="Título do Site">
+        <img class="logo" src="/css/Assets/quizverseLogo.png" alt="Logo">
+    </div>
+
+    <h1 id="userName"><strong>Logged as: Guest</strong></h1>
+
+    <img id="login-icon" src="/css/Assets/iconLogin.png" onclick="toggleDropdown()">
+
+    <div id="login-dropdown" class="loginDropdown-content">
+        <p><strong>Login or Register?</strong></p>
+        <button onclick="login()">Login</button>
+        <button onclick="register()">Register</button>
+    </div>
+
+
+    <h3 id="subtitle">Guess Rick & Morty characters</h3>
+
+    <div class="hintBox">
+        <div class="hint-ball-1">
+            <img src="/css/Assets/interrogationIcon.png" />
+            <div class="hint-text"><strong>First Letter</strong></div>
+            <div class="first-letter-tries-text"><strong>In 6 tries</strong></div>
+        </div>
+        <div class="hint-ball-2">
+            <img src="/css/Assets/interrogationIcon.png" />
+            <div class="hint-text"><strong>Image Clue</strong></div>
+            <div class="image-clue-tries-text"><strong>In 10 tries</strong></div>
+        </div>
+    </div>
+
+    <div class="button-game" id="button-game">
+        <img src="/css/Assets/classicButton.png" />
+        <div class="button-title">Classic mode</div>
+        <div class="button-description">Get clues on every try</div>
+    </div>
+
+    <div class="button-game-progress" id="button-game">
+        <img src="/css/Assets/classicButton.png" />
+        <div class="button-title">In progress...</div>
+        <img src="/css/Assets/classicButton.png" />
+        <div class="button-title">In progress...</div>
+        <img src="/css/Assets/classicButton.png" />
+        <div class="button-title">In progress...</div>
+    </div>
+
+
+    <div class="button-search">
+        <input type="text" id="searchInput" placeholder="Type character name ...">
+    </div>
+
+    <div id="button-back" class="button-goBack">Go Back</div>
+
+    <h4 id="gamePoints">Your Points: </h4>
+
+    <div id="characterBlocks"></div>
+
+    <div class="game-modes-container">
+        <div class="game-mode-box" id="easy-mode">
+            <h2>Jerry Mode</h2>
+            <p>Only 20 characters</p>
+        </div>
+        <div class="game-mode-box" id="medium-mode">
+            <h2>Morty Mode</h2>
+            <p>Only 50 characters</p>
+        </div>
+        <div class="game-mode-box" id="hard-mode">
+            <h2>Rick Mode</h2>
+            <p>Only 100 characters</p>
+            <p3>(Ranked Mode)</p3>
+        </div>
+        <div class="game-mode-box" id="impossible-mode">
+            <h2>Evil Morty Mode</h2>
+            <p>All 826 characters</p>
+        </div>
+    </div>
+
+    <script src="Javascript/LoginBox.js"></script>
+    <script src="Javascript/LandingPage.js"></script>
+    <script src="Javascript/LoginDropdown.js"></script>
+    <script type="module" src="Javascript/LandingPage.js"></script>
+</body>
+
+</html>
