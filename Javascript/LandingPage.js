@@ -317,6 +317,8 @@ function handleHintBallAction1() {
         handleHintBallAction1Called = true;
         hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
         hintBall1.removeEventListener('click', handleClick);
+        gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
     }
 
     hintBall1.addEventListener('click', handleClick);
@@ -330,6 +332,8 @@ function handleHintBallAction2() {
         handleHintBallAction2Called = true;
         hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
         hintBall2.removeEventListener('click', handleClick);
+        gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
     }
 
     hintBall2.addEventListener('click', handleClick);
@@ -480,9 +484,6 @@ function showCongrats(character, referenceElement) {
     
     p1.appendChild(strong);
     
-    const p2 = document.createElement('p');
-    p2.textContent = 'You are the 1st to find the character today';
-    
     const p3 = document.createElement('p');
     p3.innerHTML = 'Number of tries: <strong>' + tries + '</strong>';
     
@@ -494,7 +495,6 @@ function showCongrats(character, referenceElement) {
     
     congratsBlock.appendChild(h1);
     congratsBlock.appendChild(p1);
-    congratsBlock.appendChild(p2);
     congratsBlock.appendChild(p3);
     congratsBlock.appendChild(p4);
     congratsBlock.appendChild(p5);
