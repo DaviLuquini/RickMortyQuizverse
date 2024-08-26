@@ -1,5 +1,5 @@
 body {
-  background-image: url("/css/Assets/rickMortyWallpaper1.png");
+  background-image: url("../css/Assets/rickMortyWallpaper1.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -263,7 +263,7 @@ body {
   position: relative;
   left: 595px;
   overflow: hidden;
-  background: url('/css/Assets/searchButton.png') no-repeat center center;
+  background: url('../css/Assets/searchButton.png') no-repeat center center;
   background-size: cover;
 }
 
@@ -360,7 +360,7 @@ body {
   display: none;
   width: 70px;
   height: 20px;
-  margin-top: -30px;
+  top: -150px;
   position: relative;
   left: 400px;
   cursor: pointer;
@@ -393,7 +393,6 @@ body {
   position: relative;
   left: 110px;
   border-radius: 0; 
-
 }
 
 .box-header {
@@ -453,3 +452,134 @@ body {
 .congrats-block strong {
   color: #333;
 }
+
+/* Responsivity */
+@media (min-width: 1366px) {
+  body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  .containerLogo {
+    height: 120px;
+  }
+
+  .title {
+    width: 430px;
+    height: 140px;
+    position: relative;
+    left: 150px;
+  }
+
+  .logo {
+    width: 420px;
+    height: 120px;
+    position: relative;
+    right: 230px;
+  }
+
+  #subtitle {
+    position: relative;
+    left: 520px;
+  }
+
+  .button-game {
+    width: 300px;
+    height: 60px;
+    cursor: pointer;
+  
+    max-width: 300px;
+    margin-top: 40px;
+    position: relative;
+    left: 500px;
+  }
+  
+  .button-game img {
+    display: block;
+    width: 320px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .button-game-progress {
+    width: 300px;
+    height: 25px;
+    cursor: pointer;
+  
+    max-width: 250px;
+    margin-top: 40px;
+    position: relative;
+    left: 500px;
+  }
+
+  .boxContainer {
+    display: none;
+    justify-content: center;
+    
+    margin-top: 40px;
+    position: relative;
+    right: 150px;
+  }
+
+  .box {
+    display: inline-block;
+    width: 80px; 
+    height: 80px; 
+    border: 1px solid #ccc;
+    padding: 5px; 
+    margin-right: 20px;
+    background-color: #f9f9f9;
+    margin-top: 40px;
+    position: relative;
+    top: -150px;
+    left: 110px;
+    border-radius: 0; 
+  }
+  
+  .button-search {
+    display: none;
+    width: 290px;
+    height: 50px;
+  
+    top: -80px;
+    position: relative;
+    left: 525px;
+    overflow: hidden;
+    background: url('../css/Assets/searchButton.png') no-repeat center center;
+    background-size: cover;
+  }
+
+  .hintBox {
+    display: none;
+    width: 260px;
+    height: 120px;
+    background-color: #41e932;
+    border: 3px solid #286f2a;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    right: 25px;
+    top: -80px;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  .congrats-block {
+    cursor: pointer;
+    background: linear-gradient(135deg, #f0f0f0, #4CAF50);
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    top: -160px;
+    position: relative;
+    left: 460px;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+

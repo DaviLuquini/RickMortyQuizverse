@@ -8,11 +8,11 @@ function toggleDropdown() {
 }
 
 function login() {
-  window.location.href = '/Pages/LoginBox.html';
+  window.location.href = '../Pages/LoginBox.html';
 }
 
 function register() {
-  window.location.href = '/Pages/RegisterBox.html';
+  window.location.href = '../Pages/RegisterBox.html';
 }
 
 window.onclick = function(event) {

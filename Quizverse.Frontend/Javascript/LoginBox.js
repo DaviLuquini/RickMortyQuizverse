@@ -30,7 +30,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
   if (response.ok) {
       alert('Login successful');
-      window.location.href = `/Pages/LandingPage.html?username=${encodeURIComponent(username)}`;
+      window.location.href = `../Pages/LandingPage.html?username=${encodeURIComponent(username)}`;
   } else {
       alert('Login failed');
   }
@@ -40,6 +40,6 @@ window.onload = function () {
     const buttonBack = document.querySelector('.button-goBack');
 
     buttonBack.addEventListener('click', function () {
-        window.location.href = '/Pages/LandingPage.html';
+        window.location.href = '../Pages/LandingPage.html';
     });
 }

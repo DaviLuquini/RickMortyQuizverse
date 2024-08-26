@@ -1,5 +1,5 @@
 body {
-  background-image: url("/css/Assets/rickMortyWallpaper1.png");
+  background-image: url("../css/Assets/rickMortyWallpaper1.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

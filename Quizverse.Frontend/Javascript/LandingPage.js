@@ -201,6 +201,7 @@ async function getAllCharactersApi() {
   window.onload = function () {
     const buttonGame = document.querySelector('.button-game');
     const buttonGameProgress = document.querySelector('.button-game-progress');
+    const subtitle = document.getElementById('subtitle')
     const buttonSearch = document.querySelector('.button-search');
     const buttonBack = document.querySelector('.button-goBack');
     const gameModes = document.querySelector('.game-modes-container');
@@ -219,6 +220,7 @@ async function getAllCharactersApi() {
         gameModes.style.display = 'flex';
         buttonBack.style.display = 'block';
         buttonGame.style.display = 'none';
+        subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
     });
 
@@ -237,6 +239,7 @@ async function getAllCharactersApi() {
         buttonGame.style.display = 'block';
         buttonGameProgress.style.display = 'block';
         gamePoints.style.display = 'none';
+        subtitle.style.display = 'block';
 
         $('.boxContainer').remove();
         usedCharacters = [];
