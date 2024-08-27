@@ -15,26 +15,39 @@ function togglePassword() {
 }
 
 document.getElementById('login-form').addEventListener('submit', async function(event) {
-  event.preventDefault();
+    event.preventDefault();
+  
+    const username = document.getElementById('username-login').value;
+    const password = document.getElementById('password').value;
+    const loadingElement = document.getElementById('loading');
+    const buttonText = document.getElementById('button-text');
+  
+    try {
+      loadingElement.style.display = 'block';
+      buttonText.classList.add('hide-text');
 
-  const username = document.getElementById('username-login').value;
-  const password = document.getElementById('password').value;
-
-  const response = await fetch('https://localhost:7295/api/Login', {
-      method: 'POST',
-      headers: {
+      const response = await fetch('https://localhost:7295/api/Login', {
+        method: 'POST',
+        headers: {
           'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-  });
+        },
+        body: JSON.stringify({ username, password })
+      });
+  
+      if (response.ok) {
+        alert('Login successful');
+        window.location.href = `../Pages/LandingPage.html?username=${encodeURIComponent(username)}`;
+      } else {
+        alert('Login failed');
+      }
+      
+    } catch (error) {
+      alert('Servidor offline. Não foi possível conectar.');
 
-  if (response.ok) {
-      alert('Login successful');
-      window.location.href = `../Pages/LandingPage.html?username=${encodeURIComponent(username)}`;
-  } else {
-      alert('Login failed');
-  }
-});
+      loadingElement.style.display = 'none';
+      buttonText.classList.remove('hide-text');
+    }
+  });
 
 window.onload = function () {
     const buttonBack = document.querySelector('.button-goBack');

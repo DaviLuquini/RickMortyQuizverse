@@ -86,6 +86,7 @@ body {
 }
 
 .btn-register {
+  position: relative; 
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
@@ -94,6 +95,24 @@ body {
   cursor: pointer;
   width: 100%;
 }
+
+.hide-text {
+  visibility: hidden; 
+}
+
 .btn-register:hover {
   background-color: #45a049;
+}
+
+#loading {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 10; 
+}
+
+#loading img {
+  width: 20px; 
+  height: 20px;
 }

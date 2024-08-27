@@ -23,13 +23,19 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
+  const loadingElement = document.getElementById('loading');
+  const buttonText = document.getElementById('button-text');
     
   if (password !== confirmPassword) {
       alert("As senhas não coincidem. Por favor, tente novamente.");
       return;
   }
 
-  const response = await fetch('https://localhost:7295/api/Register', {
+  try {
+    loadingElement.style.display = 'block';
+    buttonText.classList.add('hide-text');
+
+    const response = await fetch('https://localhost:7295/api/Register', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -42,6 +48,13 @@ document.getElementById('register-form').addEventListener('submit', async functi
       window.location.href = '/Pages/LoginBox.html';
   } else {
       alert('Register failed!, Name already used.');
+  }
+
+    } catch (error) {
+        alert('Servidor offline. Não foi possível conectar.');
+
+        loadingElement.style.display = 'none';
+        buttonText.classList.remove('hide-text');
   }
 });
 

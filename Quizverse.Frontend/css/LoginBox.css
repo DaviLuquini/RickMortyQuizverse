@@ -95,6 +95,7 @@ body {
 }
 
 .btn-enter {
+  position: relative; 
   display: block;
   width: 100%;
   padding: 10px;
@@ -105,6 +106,23 @@ body {
   cursor: pointer;
 }
 
+.hide-text {
+  visibility: hidden; 
+}
+
 .btn-enter:hover {
   background-color: #45a049;
+}
+
+#loading {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 10; 
+}
+
+#loading img {
+  width: 20px; 
+  height: 20px;
 }

@@ -37,7 +37,12 @@
                 <img src="../css/Assets/iconOlhoFechado.png" class="show-password" onclick="togglePassword()" id="eyeClosed" />
                 <img src="../css/Assets/iconOlhoAberto.png" class="show-password" onclick="togglePassword()" id="eyeOpen" style="display:none;" />
             </div>
-            <button type="submit" class="btn-enter">Enter</button>
+            <button type="submit" class="btn-enter">
+                <span id="button-text">Enter</span>
+                <div id="loading" style="display: none;">
+                    <img src="../css/Assets/loadingGif.gif" alt="Loading...">
+                </div>
+            </button>
         </form>
     </div>
 
