@@ -19,3 +19,10 @@ export function calculateGamePoints(tries, clueUsed1, clueUsed2) {
     return userPoints;
 }
 
+
+export function calculateAllTimeGamePoints(userPoints) {
+    let allTimeGamePoints =+ userPoints;
+
+    return allTimeGamePoints;
+}
+

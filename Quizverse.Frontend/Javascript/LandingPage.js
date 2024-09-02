@@ -1,4 +1,5 @@
 import { calculateGamePoints } from './UserPoints.js';
+import { calculateAllTimeGamePoints } from './UserPoints.js';
 
 var availableCharacters = [];
 var correctCharacter;
@@ -7,6 +8,7 @@ var usedCharacters = [];
 var gameMode;
 let tries = 0;
 let gamePoints = 0;
+let allTimeGamePoints = 0;
 let remainingTries = 0;
 
 function getNameQueryParam(param) {
@@ -207,11 +209,13 @@ async function getAllCharactersApi() {
     const gameModes = document.querySelector('.game-modes-container');
     const hintBox = document.querySelector('.hintBox');
     const gamePoints = document.getElementById('gamePoints')
+    const allTimeGamePointsBox = document.getElementById('allTime-gamePoints');
+    const loginWarningBox = document.getElementById('login-warning');
 
-    const easyMode = document.getElementById('easy-mode')
-    const mediumMode = document.getElementById('medium-mode')
-    const hardMode = document.getElementById('hard-mode')
-    const impossibleMode = document.getElementById('impossible-mode')
+    const easyMode = document.getElementById('easy-mode');
+    const mediumMode = document.getElementById('medium-mode');
+    const hardMode = document.getElementById('hard-mode');
+    const impossibleMode = document.getElementById('impossible-mode');
 
     const hintBall1 = document.querySelector('.hint-ball-2');
     const hintBall2 = document.querySelector('.hint-ball-2');
@@ -222,13 +226,18 @@ async function getAllCharactersApi() {
         buttonGame.style.display = 'none';
         subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
+        allTimeGamePointsBox.style.display = 'none';
+        loginWarningBox.style.display = 'none';
     });
 
     gameModes.addEventListener('click', function () {
         gameModes.style.display = 'none';
         buttonSearch.style.display = 'block';
         gamePoints.style.display = 'block';
+        allTimeGamePointsBox.style.display = 'block';
+        loginWarningBox.style.display = 'block';
         document.getElementById('gamePoints').innerText = `Your Points: 100`;
+        document.getElementById('allTime-gamePoints').innerText = `All Time Points: 100`;
     });
 
     buttonBack.addEventListener('click', function () {
@@ -239,7 +248,9 @@ async function getAllCharactersApi() {
         buttonGame.style.display = 'block';
         buttonGameProgress.style.display = 'block';
         gamePoints.style.display = 'none';
-        subtitle.style.display = 'block';
+        subtitle.style.visibility = 'visible';
+        allTimeGamePointsBox.style.display = 'block';
+        loginWarningBox.style.display = 'block';
 
         $('.boxContainer').remove();
         usedCharacters = [];
@@ -321,7 +332,9 @@ function handleHintBallAction1() {
         hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
         hintBall1.removeEventListener('click', handleClick);
         gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
         document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+        document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
 
     hintBall1.addEventListener('click', handleClick);
@@ -336,7 +349,9 @@ function handleHintBallAction2() {
         hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
         hintBall2.removeEventListener('click', handleClick);
         gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
         document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+        document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
 
     hintBall2.addEventListener('click', handleClick);
@@ -359,7 +374,9 @@ function adjustFontSize(element, text) {
 async function updateBoxes(id) { 
     tries++;
     gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+    allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
     document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     
     await updateFirstLetterTriesText(firstLetterTries, tries);
     await updateImageClueTriesText(imageClueTries, tries);
@@ -477,7 +494,7 @@ function showCongrats(character, referenceElement) {
     congratsBlock.classList.add('congrats-block');
     
     const h1 = document.createElement('h1');
-    h1.textContent = 'Congratz!';
+    h1.textContent = 'Congrats!';
     
     const p1 = document.createElement('p');
     p1.textContent = 'You guessed ';
