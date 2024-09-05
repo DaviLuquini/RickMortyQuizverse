@@ -206,7 +206,8 @@ async function getAllCharactersApi() {
     const subtitle = document.getElementById('subtitle')
     const buttonSearch = document.querySelector('.button-search');
     const buttonBack = document.querySelector('.button-goBack');
-    const gameModes = document.querySelector('.game-modes-container');
+    const gameModesContainer = document.querySelector('.game-modes-container')
+    const gameModes = document.querySelectorAll('.game-mode-box');
     const hintBox = document.querySelector('.hintBox');
     const gamePoints = document.getElementById('gamePoints')
     const allTimeGamePointsBox = document.getElementById('allTime-gamePoints');
@@ -221,36 +222,32 @@ async function getAllCharactersApi() {
     const hintBall2 = document.querySelector('.hint-ball-2');
 
     buttonGame.addEventListener('click', function () {
-        gameModes.style.display = 'flex';
+        gameModesContainer.style.display = 'flex';
         buttonBack.style.display = 'block';
         buttonGame.style.display = 'none';
         subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
-        allTimeGamePointsBox.style.display = 'none';
-        loginWarningBox.style.display = 'none';
     });
 
-    gameModes.addEventListener('click', function () {
-        gameModes.style.display = 'none';
+    gameModes.forEach(gameMode => {
+        gameMode.addEventListener('click', function () {
+        gameModesContainer.style.display = 'none';
         buttonSearch.style.display = 'block';
         gamePoints.style.display = 'block';
-        allTimeGamePointsBox.style.display = 'block';
-        loginWarningBox.style.display = 'block';
         document.getElementById('gamePoints').innerText = `Your Points: 100`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points: 100`;
     });
+});
 
     buttonBack.addEventListener('click', function () {
         buttonSearch.style.display = 'none';
         buttonBack.style.display = 'none';
-        gameModes.style.display = 'none';
+        gameModesContainer.style.display = 'none';
         hintBox.style.display = 'none';
         buttonGame.style.display = 'block';
         buttonGameProgress.style.display = 'block';
         gamePoints.style.display = 'none';
         subtitle.style.visibility = 'visible';
-        allTimeGamePointsBox.style.display = 'block';
-        loginWarningBox.style.display = 'block';
 
         $('.boxContainer').remove();
         usedCharacters = [];

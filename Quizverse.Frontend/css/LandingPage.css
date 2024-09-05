@@ -60,9 +60,9 @@ body {
   color: #ffffff; 
   font-weight: bold; 
   font-size: 24px; 
-  position: relative;
-  top: -450px;
-  left: 1200px;
+  position: absolute;
+  top: 150px;
+  left: 1100px;
   max-width: 300px;
   max-height: 20px;
   text-shadow: 2px 2px 4px rgb(72, 255, 0); 
@@ -75,9 +75,9 @@ body {
   color: #C9971C;
   font-weight: bold;
   font-size: 18px;
-  position: relative;
-  top: -430px;
-  left: 1200px;
+  position: absolute;
+  top: 190px;
+  right: 260px;
   max-width: 150px;
   border-radius: 5px;
   width: auto;
@@ -227,15 +227,16 @@ body {
 
 .game-modes-container {
   display: none;
+  flex-wrap: wrap; 
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100vh;
+  flex-direction: row;
+  position: fixed; 
+  top: 60%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
   margin: 0;
-  top: -80px;
-  position: relative;
-  height: calc(80vh + 1px);
-  font-family: Arial, sans-serif;
+  border: 0;
 }
 
 .game-mode-box {
@@ -392,28 +393,42 @@ body {
   bottom: 6px; 
 }
 
-
 .button-goBack {
   display: none;
-  width: 70px;
-  height: 20px;
-  top: -300px;
-  position: relative;
-  left: 400px;
-  cursor: pointer;
-
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  top: 250px;
+  right: 1000px;
+  background-color: #28a745; 
   color: white; 
   font-size: 16px;
-  text-decoration: underline;
   font-family: Arial, sans-serif;
   font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
+
+.button-goBack:hover {
+  background-color: #218838; 
+  transform: scale(1.05);
+}
+
+.button-goBack:active {
+  background-color: #1e7e34; 
+  transform: scale(1);
+}
+
 
 .boxContainer {
   display: none;
   justify-content: center;
   
-  top: -200px;
+  top: -120px;
   position: relative;
   right: 150px;
 }
