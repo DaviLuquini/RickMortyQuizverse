@@ -368,6 +368,68 @@ function adjustFontSize(element, text) {
     }
 }
 
+const players = [
+    { nick: "playerOne", points: 1200 },
+            { nick: "playerTwo", points: 1300 },
+            { nick: "playerThree", points: 1400 },
+            { nick: "playerFour", points: 1500 },
+            { nick: "playerFive", points: 1600 },
+            { nick: "playerSix", points: 1700 },
+            { nick: "playerSeven", points: 1800 },
+            { nick: "playerEight", points: 1900 },
+            { nick: "playerSeven", points: 1800 },
+            { nick: "playerEight", points: 1900 }
+];
+
+// Função para gerar a tabela dinamicamente
+function generateTable() {
+    const tableBody = document.querySelector('#playersTable tbody');
+    
+    // Ordenar jogadores pela pontuação (opcional se já estiver ordenado)
+    players.sort((a, b) => a.points - b.points);
+
+    // Adicionar cada jogador na tabela
+    players.forEach((player, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td class="nick">${player.nick}</td>
+            <td>${player.points}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+//Lógica para a funcionalidade da tabela
+document.addEventListener('DOMContentLoaded', function () {
+    const tableTitle = document.getElementById('tableTitle');
+    let tableGenerated = false;
+    
+    if (tableTitle) {
+        tableTitle.addEventListener('click', function () {
+            const table = document.getElementById('playersTable');
+            const icon = document.getElementById('expandIcon');
+
+            if (!tableGenerated) {
+                generateTable();
+                tableGenerated = true;  
+            }
+
+            if (table.style.display === 'none' || table.style.display === '') {
+                table.style.display = 'table';
+                icon.classList.add('expanded');
+            } else {
+                table.style.display = 'none';
+                icon.classList.remove('expanded');
+            }
+        });
+    } else {
+        console.error("Elemento 'tableTitle' não encontrado.");
+    }
+});
+
+
+
 async function updateBoxes(id) { 
     tries++;
     gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);

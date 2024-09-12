@@ -61,8 +61,8 @@ body {
   font-weight: bold; 
   font-size: 24px; 
   position: absolute;
-  top: 150px;
-  left: 1100px;
+  top: 100px;
+  left: 1250px;
   max-width: 300px;
   max-height: 20px;
   text-shadow: 2px 2px 4px rgb(72, 255, 0); 
@@ -76,8 +76,8 @@ body {
   font-weight: bold;
   font-size: 18px;
   position: absolute;
-  top: 190px;
-  right: 260px;
+  top: 140px;
+  right: 100px;
   max-width: 150px;
   border-radius: 5px;
   width: auto;
@@ -88,6 +88,79 @@ body {
   border: 1px solid rgba(254, 236, 111, 0.8);
 }
 
+#tableTitle {
+  text-align: center;
+  font-size: 28px;
+  color: #000000;
+  margin-top: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  right: 100px;
+  top: 200px;
+}
+
+#playersTable {
+  position: absolute;
+  right: 10px;
+  top: 250px;
+  width: 30%;
+  height: 3px;
+  margin: 40px auto;
+  border-collapse: collapse;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#playersTable th {
+  background-color: #343a40;
+  color: white;
+  text-align: left;
+  padding: 15px;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+}
+
+#playersTable td {
+  padding: 15px;
+  font-size: 16px;
+  color: #343a40;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#playersTable tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+#playersTable tr:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nick {
+  font-weight: bold;
+  color: #007bff;
+  text-transform: capitalize;
+}
+
+#expandIcon {
+  margin-left: 10px;
+  width: 20px;
+  transition: transform 0.3s;
+}
+
+#expandIcon.expanded {
+  transform: rotate(180deg);
+}
 
 #userName {
   font-family: 'Roboto', sans-serif;
@@ -534,24 +607,6 @@ body {
   #subtitle {
     position: relative;
     left: 520px;
-  }
-
-  .button-game {
-    width: 300px;
-    height: 60px;
-    cursor: pointer;
-  
-    max-width: 300px;
-    margin-top: 40px;
-    position: relative;
-    left: 500px;
-  }
-  
-  .button-game img {
-    display: block;
-    width: 320px;
-    height: 60px;
-    object-fit: cover;
   }
 
   .button-game-progress {
