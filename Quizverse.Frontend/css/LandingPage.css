@@ -48,8 +48,8 @@ body {
   font-weight: bold; 
   font-size: 24px; 
   position: relative;
-  top: -300px;
-  left: 870px;
+  top: -200px;
+  left: 350px;
   max-width: 300px;
   max-height: 20px;
   text-shadow: 2px 2px 4px rgb(72, 255, 0); 
@@ -60,9 +60,11 @@ body {
   color: #ffffff; 
   font-weight: bold; 
   font-size: 24px; 
+ 
   position: absolute;
+  right: 170px;
   top: 100px;
-  left: 1250px;
+
   max-width: 300px;
   max-height: 20px;
   text-shadow: 2px 2px 4px rgb(72, 255, 0); 
@@ -75,9 +77,11 @@ body {
   color: #C9971C;
   font-weight: bold;
   font-size: 18px;
+
   position: absolute;
   top: 140px;
-  right: 100px;
+  right: 200px;
+
   max-width: 150px;
   border-radius: 5px;
   width: auto;
@@ -93,7 +97,6 @@ body {
   font-size: 28px;
   color: #000000;
   margin-top: 30px;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: bold;
   cursor: pointer;
@@ -104,11 +107,27 @@ body {
   position: absolute;
   right: 100px;
   top: 200px;
+
+  background: linear-gradient(90deg, #2e7d32, #66bb6a);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(146, 94, 94, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#tableTitle:hover {
+  background: linear-gradient(90deg, #66bb6a, #2e7d32);
+  transform: scale(1.05);
+}
+
+#tableTitle:before {
+  margin-right: 10px;
 }
 
 #playersTable {
+  display: block;
   position: absolute;
-  right: 10px;
+  right: 52px;
   top: 250px;
   width: 30%;
   height: 3px;
@@ -118,6 +137,7 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 #playersTable th {
@@ -576,6 +596,12 @@ body {
 
 .congrats-block strong {
   color: #333;
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden; 
 }
 
 /* Responsivity */

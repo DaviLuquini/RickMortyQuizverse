@@ -203,13 +203,16 @@ async function getAllCharactersApi() {
   window.onload = function () {
     const buttonGame = document.querySelector('.button-game');
     const buttonGameProgress = document.querySelector('.button-game-progress');
-    const subtitle = document.getElementById('subtitle')
     const buttonSearch = document.querySelector('.button-search');
     const buttonBack = document.querySelector('.button-goBack');
     const gameModesContainer = document.querySelector('.game-modes-container')
     const gameModes = document.querySelectorAll('.game-mode-box');
     const hintBox = document.querySelector('.hintBox');
-    const gamePoints = document.getElementById('gamePoints')
+
+    const subtitle = document.getElementById('subtitle')
+    const gamePoints = document.getElementById('gamePoints');
+    const playersTable = document.getElementById('playersTable');
+    const tableTitle = document.getElementById('tableTitle');
     const allTimeGamePointsBox = document.getElementById('allTime-gamePoints');
     const loginWarningBox = document.getElementById('login-warning');
 
@@ -227,6 +230,10 @@ async function getAllCharactersApi() {
         buttonGame.style.display = 'none';
         subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
+        tableTitle.style.display = 'none';
+        playersTable.style.display = 'none';
+
+        subtitle.style.visibility = 'hidden';
     });
 
     gameModes.forEach(gameMode => {
@@ -234,7 +241,7 @@ async function getAllCharactersApi() {
         gameModesContainer.style.display = 'none';
         buttonSearch.style.display = 'block';
         gamePoints.style.display = 'block';
-        document.getElementById('gamePoints').innerText = `Your Points: 100`;
+        document.getElementById('gamePoints').innerText = `Current Points: 100`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points: 100`;
     });
 });
@@ -244,9 +251,11 @@ async function getAllCharactersApi() {
         buttonBack.style.display = 'none';
         gameModesContainer.style.display = 'none';
         hintBox.style.display = 'none';
+        gamePoints.style.display = 'none';
         buttonGame.style.display = 'block';
         buttonGameProgress.style.display = 'block';
-        gamePoints.style.display = 'none';
+        tableTitle.style.display = 'block';
+       
         subtitle.style.visibility = 'visible';
 
         $('.boxContainer').remove();
@@ -330,7 +339,7 @@ function handleHintBallAction1() {
         hintBall1.removeEventListener('click', handleClick);
         gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
-        document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+        document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
 
@@ -434,7 +443,7 @@ async function updateBoxes(id) {
     tries++;
     gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
     allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
-    document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+    document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
     document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     
     await updateFirstLetterTriesText(firstLetterTries, tries);
