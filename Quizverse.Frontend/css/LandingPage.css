@@ -62,7 +62,7 @@ body {
   font-size: 24px; 
  
   position: absolute;
-  right: 170px;
+  right: 150px;
   top: 100px;
 
   max-width: 300px;
@@ -80,7 +80,7 @@ body {
 
   position: absolute;
   top: 140px;
-  right: 200px;
+  right: 165px;
 
   max-width: 150px;
   border-radius: 5px;

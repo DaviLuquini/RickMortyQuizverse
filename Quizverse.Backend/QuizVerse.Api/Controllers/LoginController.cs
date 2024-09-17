@@ -19,7 +19,15 @@ namespace QuizVerse.Api.Controllers
             {
                 if (request.Username == user.Name && request.Password == user.Password)
                 {
-                    return Ok(new { message = "Login successful"});
+                    return Ok(new { message = "Login successful" });
+                }
+                else if (request.Username != user.Name)
+                {
+                    return NotFound(new { message = "UserName not found" });
+                }
+                else if (request.Username == user.Name && request.Password != user.Password)
+                {
+                    return Unauthorized(new { message = "Wrong Password" });
                 }
             }
             return Unauthorized(new { message = "Login failed" });

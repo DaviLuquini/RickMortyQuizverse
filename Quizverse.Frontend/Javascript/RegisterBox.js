@@ -27,7 +27,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const buttonText = document.getElementById('button-text');
     
   if (password !== confirmPassword) {
-      alert("As senhas não coincidem. Por favor, tente novamente.");
+      alert("Both passwords need to be the same.");
       return;
   }
 
@@ -45,13 +45,15 @@ document.getElementById('register-form').addEventListener('submit', async functi
 
   if (response.ok) {
       alert('Register successful');
-      window.location.href = '/Pages/LoginBox.html';
+      window.location.href = '../Pages/LoginBox.html';
   } else {
-      alert('Register failed!, Name already used.');
+      alert('Register failed! Name already used.');
+      loadingElement.style.display = 'none';
+      buttonText.classList.remove('hide-text');
   }
 
     } catch (error) {
-        alert('Servidor offline. Não foi possível conectar.');
+        alert('Server offline. Not possible to connect.');
 
         loadingElement.style.display = 'none';
         buttonText.classList.remove('hide-text');

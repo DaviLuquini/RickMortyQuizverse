@@ -26,7 +26,7 @@ namespace QuizVerse.Api.Controllers
             }
             else
             {
-                return Unauthorized(new { message = "Register failed!, Name already used." });
+                return Unauthorized(new { message = "Register failed! Name already used." });
             }
         }
 

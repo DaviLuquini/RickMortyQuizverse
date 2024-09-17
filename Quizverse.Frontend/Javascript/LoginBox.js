@@ -37,12 +37,23 @@ document.getElementById('login-form').addEventListener('submit', async function(
       if (response.ok) {
         alert('Login successful');
         window.location.href = `../Pages/LandingPage.html?username=${encodeURIComponent(username)}`;
-      } else {
+      } else if(response.status === 404) {
+         alert('Username not found');
+         loadingElement.style.display = 'none';
+         buttonText.classList.remove('hide-text');
+      } else if(response.status === 401) {
+        alert('Wrong password');
+        loadingElement.style.display = 'none';
+        buttonText.classList.remove('hide-text');
+      }
+       else {
         alert('Login failed');
+        loadingElement.style.display = 'none';
+        buttonText.classList.remove('hide-text');
       }
       
     } catch (error) {
-      alert('Servidor offline. Não foi possível conectar.');
+      alert('Server offline. Not possible to connect.');
 
       loadingElement.style.display = 'none';
       buttonText.classList.remove('hide-text');
