@@ -517,13 +517,14 @@ body {
 }
 
 
+/* Box with the character */
 .boxContainer {
   display: none;
   justify-content: center;
   
   top: -120px;
   position: relative;
-  right: 150px;
+  right: 110px;
 }
 
 .box {
@@ -572,9 +573,9 @@ body {
   text-align: center;
   max-width: 400px;
   width: 100%;
-  margin-top: 50px;
+  top: -105px;
   position: relative;
-  left: 460px;
+  left: 520px;
   transition: all 0.3s ease-in-out;
 }
 
