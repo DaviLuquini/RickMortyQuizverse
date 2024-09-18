@@ -17,17 +17,30 @@ namespace QuizVerse.Api.Controllers
             var users = GetUsers();
             bool userExists = users.Any(user => user.Name == request.Username);
 
-            if (!userExists)
-            {
-                var newUser = new User(0, request.Username, request.Password);
-                repository.AddUser(newUser);
-
-                return Ok(new { message = "Register successful!", user = newUser });
-            }
-            else
+            if (userExists)
             {
                 return Unauthorized(new { message = "Register failed! Name already used." });
             }
+
+            if (request.Username.Length > 20)
+            {
+                return Unauthorized(new { message = "Register failed! UserName reached Max characters (20)" });
+            }
+
+            if (request.Password.Length > 30)
+            {
+                return Unauthorized(new { message = "Register failed! Password reached Max characters (30)" });
+            }
+
+            if (users.Count >= 1000)
+            {
+                return BadRequest(new { message = "Maximum number of users reached. Cannot add more users." });
+            }
+
+            var newUser = new User(0, request.Username, request.Password);
+            repository.AddUser(newUser);
+
+            return Ok(new { message = "Register successful!", user = newUser });
         }
 
         private List<User> GetUsers()

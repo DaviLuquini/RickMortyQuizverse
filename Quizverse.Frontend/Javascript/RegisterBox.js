@@ -46,7 +46,20 @@ document.getElementById('register-form').addEventListener('submit', async functi
   if (response.ok) {
       alert('Register successful');
       window.location.href = '../Pages/LoginBox.html';
-  } else {
+  } else if(errorResponse.code === 'USERNAME_TOO_LONG') {
+    alert('Register failed! UserName Too Long.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(errorResponse.code === 'PASSWORD_TOO_LONG') {
+    alert('Register failed! Password Too Long.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(errorResponse.code === 'USERS_LIMIT_REACHED') {
+    alert('Register failed! Users limit reached.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  }
+   else {
       alert('Register failed! Name already used.');
       loadingElement.style.display = 'none';
       buttonText.classList.remove('hide-text');
