@@ -43,24 +43,30 @@ document.getElementById('register-form').addEventListener('submit', async functi
       body: JSON.stringify({ username, password })
   });
 
+  const result = await response.json();
+
   if (response.ok) {
       alert('Register successful');
       window.location.href = '../Pages/LoginBox.html';
-  } else if(errorResponse.code === 'USERNAME_TOO_LONG') {
+  } else if(result.code === 'USERNAME_TOO_LONG') {
     alert('Register failed! UserName Too Long.');
     loadingElement.style.display = 'none';
     buttonText.classList.remove('hide-text');
-  } else if(errorResponse.code === 'PASSWORD_TOO_LONG') {
+  } else if(result.code === 'PASSWORD_TOO_LONG') {
     alert('Register failed! Password Too Long.');
     loadingElement.style.display = 'none';
     buttonText.classList.remove('hide-text');
-  } else if(errorResponse.code === 'USERS_LIMIT_REACHED') {
+  } else if(result.code === 'USERS_LIMIT_REACHED') {
     alert('Register failed! Users limit reached.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(result.code === 'NAME_ALREADY_USED') {
+    alert('Register failed! Name Already Used.');
     loadingElement.style.display = 'none';
     buttonText.classList.remove('hide-text');
   }
    else {
-      alert('Register failed! Name already used.');
+      alert('Register failed! Server Offline.');
       loadingElement.style.display = 'none';
       buttonText.classList.remove('hide-text');
   }

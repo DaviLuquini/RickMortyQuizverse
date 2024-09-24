@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDistributedMemoryCache();
+
 // Add services to the container.
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAnyOriginPolicy",
@@ -11,6 +13,14 @@ builder.Services.AddCors(options => {
 });
 
 builder.Services.AddControllers();
+
+// Adiciona serviço de sessão
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(120); 
+    options.Cookie.HttpOnly = true; 
+    options.Cookie.IsEssential = true; 
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Middleware de sessão deve ser adicionado antes da autorização
+app.UseSession();
 
 app.UseCors("AllowAnyOriginPolicy");
 

@@ -17,17 +17,25 @@ namespace QuizVerse.Api.Controllers
 
             foreach (var user in users)
             {
-                if (request.Username == user.Name && request.Password == user.Password)
+                if (request.Username != user.Name)
                 {
-                    return Ok(new { message = "Login successful" });
-                }
-                else if (request.Username != user.Name)
-                {
-                    return NotFound(new { message = "UserName not found" });
+                    return Unauthorized(new {
+                        code = "USERNAME_NOT_FOUND",
+                        message = "Name not found."
+                    });
                 }
                 else if (request.Username == user.Name && request.Password != user.Password)
                 {
-                    return Unauthorized(new { message = "Wrong Password" });
+                    return Unauthorized(new {
+                        code = "WRONG_PASSWORD",
+                        message = "Wrong Password."
+                    });
+                }
+                else if (request.Username == user.Name && request.Password == user.Password)
+                {
+                    HttpContext.Session.SetString("Name", user.Name);
+                    HttpContext.Session.SetInt32("UserId", user.Id);
+                    return Ok(new { message = "Login successful" });
                 }
             }
             return Unauthorized(new { message = "Login failed" });
