@@ -7,6 +7,7 @@ using QuizverseBack.Models;
 
 namespace Quizverse.Api.Tests
 {
+    [TestFixture]
     public class RegisterControllerTests
     {
         private RegisterController _controller;

@@ -17,12 +17,11 @@ namespace QuizVerse.Api.Controllers
 
             foreach (var user in users)
             {
-                if (request.Username != user.Name)
+                if (request.Username == user.Name && request.Password == user.Password)
                 {
-                    return Unauthorized(new {
-                        code = "USERNAME_NOT_FOUND",
-                        message = "Name not found."
-                    });
+                    HttpContext.Session.SetString("Name", user.Name);
+                    HttpContext.Session.SetInt32("UserId", user.Id);
+                    return Ok(new { message = "Login successful" });
                 }
                 else if (request.Username == user.Name && request.Password != user.Password)
                 {
@@ -31,15 +30,27 @@ namespace QuizVerse.Api.Controllers
                         message = "Wrong Password."
                     });
                 }
-                else if (request.Username == user.Name && request.Password == user.Password)
-                {
-                    HttpContext.Session.SetString("Name", user.Name);
-                    HttpContext.Session.SetInt32("UserId", user.Id);
-                    return Ok(new { message = "Login successful" });
-                }
             }
-            return Unauthorized(new { message = "Login failed" });
+            return Unauthorized(new {
+                code = "USERNAME_NOT_FOUND",
+                message = "Name not found."
+            });
         }
+
+        [HttpGet("check-session")]
+        public IActionResult CheckSession()
+        {
+            var name = HttpContext.Session.GetString("Name");
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (string.IsNullOrEmpty(name) || userId == null)
+            {
+                return Unauthorized(new { message = "User not logged in." });
+            }
+
+            return Ok(new { message = $"Logged in as {name} (ID: {userId})" });
+        }
+
 
         private List<User> GetUsers()
         {
