@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{45
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizVerse.Platform", "..\QuizVerse.Platform\QuizVerse.Platform.csproj", "{5C945F1C-6E0A-41A0-9452-E56D6D0F87CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quizverse.Api.Tests", "..\Quizverse.Api.Tests\Quizverse.Api.Tests.csproj", "{C6EE9E50-DA7A-48A8-961B-A66F7C16F694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5C945F1C-6E0A-41A0-9452-E56D6D0F87CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C945F1C-6E0A-41A0-9452-E56D6D0F87CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C945F1C-6E0A-41A0-9452-E56D6D0F87CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6EE9E50-DA7A-48A8-961B-A66F7C16F694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6EE9E50-DA7A-48A8-961B-A66F7C16F694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6EE9E50-DA7A-48A8-961B-A66F7C16F694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6EE9E50-DA7A-48A8-961B-A66F7C16F694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{AA34309C-3DC8-4123-9922-33DFEE5B1C27} = {A5CF1BD0-385B-45D7-816A-8E174A6047B4}
 		{BF5F60A7-229D-469E-A8F5-A9925EBCB472} = {AD2B13B5-B3F1-4C3B-A1FF-F45D81D27FD3}
 		{5C945F1C-6E0A-41A0-9452-E56D6D0F87CF} = {45EBFBFB-7401-4383-A4A2-2CFC12109419}
+		{C6EE9E50-DA7A-48A8-961B-A66F7C16F694} = {AD2B13B5-B3F1-4C3B-A1FF-F45D81D27FD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F328D91F-5103-42BE-B687-0F4DEFBBA923}

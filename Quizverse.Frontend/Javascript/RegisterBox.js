@@ -27,7 +27,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const buttonText = document.getElementById('button-text');
     
   if (password !== confirmPassword) {
-      alert("As senhas não coincidem. Por favor, tente novamente.");
+      alert("Both passwords need to be the same.");
       return;
   }
 
@@ -43,15 +43,36 @@ document.getElementById('register-form').addEventListener('submit', async functi
       body: JSON.stringify({ username, password })
   });
 
+  const result = await response.json();
+
   if (response.ok) {
       alert('Register successful');
-      window.location.href = '/Pages/LoginBox.html';
-  } else {
-      alert('Register failed!, Name already used.');
+      window.location.href = '../Pages/LoginBox.html';
+  } else if(result.code === 'USERNAME_TOO_LONG') {
+    alert('Register failed! UserName Too Long.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(result.code === 'PASSWORD_TOO_LONG') {
+    alert('Register failed! Password Too Long.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(result.code === 'USERS_LIMIT_REACHED') {
+    alert('Register failed! Users limit reached.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  } else if(result.code === 'NAME_ALREADY_USED') {
+    alert('Register failed! Name Already Used.');
+    loadingElement.style.display = 'none';
+    buttonText.classList.remove('hide-text');
+  }
+   else {
+      alert('Register failed! Server Offline.');
+      loadingElement.style.display = 'none';
+      buttonText.classList.remove('hide-text');
   }
 
     } catch (error) {
-        alert('Servidor offline. Não foi possível conectar.');
+        alert('Server offline. Not possible to connect.');
 
         loadingElement.style.display = 'none';
         buttonText.classList.remove('hide-text');
