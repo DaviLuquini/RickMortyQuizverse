@@ -13,18 +13,6 @@ namespace Quizverse.Api.Tests
     public class LoginControllerTests
     {
         [Test]
-        public void LoginController()
-        {
-            var request = new LoginRequest { Username = "validUser", Password = "validPassword" };
-            var users = new List<User> { new() { Name = "validUser", Password = "validPassword", Id = 1 } };
-
-            LoginController loginController = new();
-
-            var result = loginController.Login(request);
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
         public async Task LoginUser()
         {
             var httpClient = new HttpClient {
@@ -47,7 +35,7 @@ namespace Quizverse.Api.Tests
             var jsonLoginRequest = JsonSerializer.Serialize(loginRequest);
             var loginContent = new StringContent(jsonLoginRequest, Encoding.UTF8, "application/json");
 
-            //TO-DO mudar a logica para essa abaixo usando metodo inves de passar direto na API:
+            //TO-DO mudar a logica para essa abaixo usando metodo inves de passar direto na API, e usando Mocks!
             //LoginController loginController = new();
             //loginController.Login(loginRequest);
 

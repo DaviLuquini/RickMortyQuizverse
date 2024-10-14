@@ -11,16 +11,31 @@ let gamePoints = 0;
 let allTimeGamePoints = 0;
 let remainingTries = 0;
 
-function getNameQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
+async function getSessionInfo() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('https://localhost:7295/api/Login/check-session', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    const result = await response.json();
+
+    if (response.ok && result.message) {
+        const usernameMatch = result.message.match(/Logged in as (\w+)/);
+        const username = usernameMatch ? usernameMatch[1] : null;
+
+        if (username) {
+            document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
+        } else {
+            alert('Could not extract username from the response.');
+        }
+    } else {
+        alert('User not logged in.');
+    }
 }
 
-const username = getNameQueryParam('username');
+getSessionInfo();
 
-if (username) {
-    document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
-}
 
 async function getAllCharactersApi() {
     const allCharacters = [];

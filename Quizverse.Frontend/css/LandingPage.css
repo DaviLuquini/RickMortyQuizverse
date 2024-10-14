@@ -197,7 +197,7 @@ body {
   max-width: 80px;
   position: absolute; 
   top: 50px;
-  left: 320px;
+  left: 350px;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 

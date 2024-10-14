@@ -29,7 +29,7 @@ namespace QuizVerse.Api.Controllers
             {
                 return BadRequest(new {
                     code = "USERNAME_TOO_LONG",
-                    message = "Register failed! UserName reached Max characters (20)"
+                    message = "Register failed! UserName reached Max characters (12)"
                 });
             }
 
