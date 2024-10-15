@@ -35,7 +35,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
     loadingElement.style.display = 'block';
     buttonText.classList.add('hide-text');
 
-    const response = await fetch('https://localhost:7295/api/Register', {
+    const response = await fetch('https://localhost:7295/api/register', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import { calculateGamePoints } from './UserPoints.js';
+import { calculateTriesGamePoints } from './UserPoints.js';
 import { calculateAllTimeGamePoints } from './UserPoints.js';
 
 var availableCharacters = [];
@@ -6,21 +6,42 @@ var correctCharacter;
 var randomCharacter;
 var usedCharacters = [];
 var gameMode;
+var easyGameMode = false;
+var mediumGameMode = false;
+var hardGameMode = false;
+var impossibleGameMode = false;
+var bonusPoints = 0;
 let tries = 0;
 let gamePoints = 0;
 let allTimeGamePoints = 0;
 let remainingTries = 0;
 
-function getNameQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
+
+async function getSessionInfo() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('https://localhost:7295/api/Login/check-session', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    const result = await response.json();
+
+    if (response.ok && result.message) {
+        const usernameMatch = result.message.match(/Logged in as (\w+)/);
+        const username = usernameMatch ? usernameMatch[1] : null;
+
+        if (username) {
+            document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
+        } else {
+            alert('Could not extract username from the response.');
+        }
+    } else {
+        alert('User not logged in.');
+    }
 }
 
-const username = getNameQueryParam('username');
+getSessionInfo();
 
-if (username) {
-    document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
-}
 
 async function getAllCharactersApi() {
     const allCharacters = [];
@@ -97,21 +118,25 @@ async function getAllCharactersApi() {
 
         easyMode.addEventListener('click', function() {
             gameMode = 'easy';
+            easyGameMode = true;
             initializeAvailableCharacters(gameMode);
         });
     
         mediumMode.addEventListener('click', function() {
             gameMode = 'medium';
+            mediumGameMode = true;
             initializeAvailableCharacters(gameMode);
         });
     
         hardMode.addEventListener('click', function() {
             gameMode = 'hard';
+            hardGameMode = true;
             initializeAvailableCharacters(gameMode);
         });
     
         impossibleMode.addEventListener('click', function() {
             gameMode = 'impossible';
+            impossibleGameMode = true;
             initializeAvailableCharacters(gameMode);
         });
     });
@@ -337,7 +362,7 @@ function handleHintBallAction1() {
         handleHintBallAction1Called = true;
         hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
         hintBall1.removeEventListener('click', handleClick);
-        gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
@@ -354,9 +379,9 @@ function handleHintBallAction2() {
         handleHintBallAction2Called = true;
         hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
         hintBall2.removeEventListener('click', handleClick);
-        gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+        gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
-        document.getElementById('gamePoints').innerText = `Your Points: ${gamePoints}`;
+        document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
 
@@ -441,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function updateBoxes(id) { 
     tries++;
-    gamePoints = calculateGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
+    gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
     allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
     document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
     document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
@@ -541,6 +566,36 @@ async function updateBoxes(id) {
             buttonBack.style.display = 'none';
 
             newBoxContainer.prependTo("#characterBlocks");
+
+            if(tries <= 5) {
+                bonusPoints = 150;
+                gamePoints += bonusPoints;
+            }
+            else if(tries <= 10) {
+                bonusPoints = 100;
+                gamePoints += bonusPoints;
+            }
+            else if (tries <= 15) {
+                bonusPoints = 50;
+                gamePoints += bonusPoints;
+            }
+
+            if(easyGameMode) {
+                gamePoints = 0;
+            }
+            else if(mediumGameMode) {
+                gamePoints *= 1;
+            }
+            else if(hardGameMode) {
+                gamePoints *= 3;
+            }
+            else if(impossibleGameMode) {
+                gamePoints *= 5;
+            }
+
+            document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
+            allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
+            document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
             showCongrats(character, newBoxContainer);     
         } else {
             boxCorrect.css("background-color", "red");
@@ -574,18 +629,38 @@ function showCongrats(character, referenceElement) {
     
     const p3 = document.createElement('p');
     p3.innerHTML = 'Number of tries: <strong>' + tries + '</strong>';
-    
+
     const p4 = document.createElement('p');
-    p4.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points';
+    p4.innerHTML = 'You got: <strong>' + bonusPoints + '</strong>' + ' bonus points';
 
     const p5 = document.createElement('p');
-    p5.innerHTML = '<strong>Tap to play again!</strong>';
+    p5.innerHTML = 'You lost: <strong>' + tries + '</strong>' + ' points (1 point for each try)';
+
+    const p6 = document.createElement('p');
+
+    if(easyGameMode) {
+        p6.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points in total' + ' (0x Easy Mode Multiplier)';
+    }
+    else if(mediumGameMode) {
+        p6.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points in total' + ' (1x Medium Mode Multiplier)';
+    }
+    else if(hardGameMode) {
+        p6.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points in total' + ' (3x Hard Mode Multiplier)';
+    }
+    else if(impossibleGameMode) {
+        p6.innerHTML = 'You got: <strong>' + gamePoints + '</strong>' + ' points in total' + ' (5x Impossible Mode Multiplier)';
+    }
+
+    const p7= document.createElement('p');
+    p7.innerHTML = '<strong>Tap to play again!</strong>';
     
     congratsBlock.appendChild(h1);
     congratsBlock.appendChild(p1);
     congratsBlock.appendChild(p3);
     congratsBlock.appendChild(p4);
     congratsBlock.appendChild(p5);
+    congratsBlock.appendChild(p6);
+    congratsBlock.appendChild(p7);
 
     congratsBlock.addEventListener('click', function() {
         location.reload();

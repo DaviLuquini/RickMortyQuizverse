@@ -39,9 +39,10 @@ document.getElementById('login-form').addEventListener('submit', async function(
   
       if (response.ok) {
         alert('Login successful');
-        window.location.href = '../Pages/LandingPage.html';
-
-      } else if(result.code === 'USERNAME_NOT_FOUND') {
+        localStorage.setItem('token', result.token);
+        window.location.href = `../Pages/LandingPage.html`;
+      } 
+      else if(result.code === 'USERNAME_NOT_FOUND') {
          alert('Username not found');
          loadingElement.style.display = 'none';
          buttonText.classList.remove('hide-text');
