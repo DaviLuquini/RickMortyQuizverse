@@ -14,14 +14,16 @@ function togglePassword() {
   }
 }
 
+
 document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault();
-  
+
     const username = document.getElementById('username-login').value;
     const password = document.getElementById('password').value;
     const loadingElement = document.getElementById('loading');
     const buttonText = document.getElementById('button-text');
-  
+    let allTimeGamePoints = 0;
+
     try {
       loadingElement.style.display = 'block';
       buttonText.classList.add('hide-text');
@@ -40,7 +42,15 @@ document.getElementById('login-form').addEventListener('submit', async function(
       if (response.ok) {
         alert('Login successful');
         localStorage.setItem('token', result.token);
-        window.location.href = `../Pages/LandingPage.html`;
+        
+        try {
+            allTimeGamePoints = await getUserPoints(username); 
+            localStorage.setItem('allTimeGamePoints', allTimeGamePoints);
+            window.location.href = `../Pages/LandingPage.html`; 
+        } catch (error) {
+            console.error('Error fetching user points:', error);
+            alert('Could not fetch user points. Please try again later.');
+        }
       } 
       else if(result.code === 'USERNAME_NOT_FOUND') {
          alert('Username not found');
@@ -74,4 +84,22 @@ window.onload = function () {
     buttonBack.addEventListener('click', function () {
         window.location.href = '../Pages/LandingPage.html';
     });
+}
+
+async function getUserPoints(userName) {
+  const response = await fetch(`https://localhost:7295/api/UserPoints?userName=${encodeURIComponent(userName)}`, {
+      method: 'GET',
+      headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+      }
+  });
+
+  if (!response.ok) {
+    const errorDetail = await response.text(); 
+    throw new Error(`Network response was not ok: ${response.status} - ${errorDetail}`);
+  }
+
+  const result = await response.json();
+  return result; 
 }

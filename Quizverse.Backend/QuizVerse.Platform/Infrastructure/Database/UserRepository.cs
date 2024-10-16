@@ -33,6 +33,21 @@ namespace QuizVerse.Platform.Infrastructure.Database
             return users.ToList();
         }
 
+        public int GetUserPoints(int userId)
+        {
+            using var conn = new DbConnection();
+
+            EnsureTableExists(conn.Connection);
+
+            string query = @"SELECT userpoints
+                     FROM public.""Users""
+                     WHERE id = @UserId;";
+
+            var userPoints = conn.Connection.QueryFirstOrDefault<int>(sql: query,param: new { UserId = userId });
+
+            return userPoints;
+        }
+
         private void EnsureTableExists(IDbConnection connection)
         {
             string checkTableQuery = @"SELECT EXISTS (

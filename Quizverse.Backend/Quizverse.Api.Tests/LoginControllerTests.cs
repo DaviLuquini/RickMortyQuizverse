@@ -43,7 +43,6 @@ namespace Quizverse.Api.Tests
             Assert.That(loginResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
-
         //await cloudExpertAppServiceMock.Received(1)
         //    .AddAddress(
         //        Arg.Is<AddAddressCommand>(a => a.Street == command.Street && a.City == command.City),

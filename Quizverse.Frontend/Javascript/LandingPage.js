@@ -13,7 +13,7 @@ var impossibleGameMode = false;
 var bonusPoints = 0;
 let tries = 0;
 let gamePoints = 0;
-let allTimeGamePoints = 0;
+let allTimeGamePoints = localStorage.getItem('allTimeGamePoints');
 let remainingTries = 0;
 
 
@@ -29,6 +29,7 @@ async function getSessionInfo() {
     if (response.ok && result.message) {
         const usernameMatch = result.message.match(/Logged in as (\w+)/);
         const username = usernameMatch ? usernameMatch[1] : null;
+        document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 
         if (username) {
             document.getElementById('userName').innerHTML = `<strong>Logged as: ${username}</strong>`;
@@ -363,7 +364,6 @@ function handleHintBallAction1() {
         hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
         hintBall1.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
-        allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
@@ -380,7 +380,6 @@ function handleHintBallAction2() {
         hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
         hintBall2.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
-        allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     }
@@ -467,7 +466,6 @@ document.addEventListener('DOMContentLoaded', function () {
 async function updateBoxes(id) { 
     tries++;
     gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
-    allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
     document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
     document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
     
@@ -594,8 +592,6 @@ async function updateBoxes(id) {
             }
 
             document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
-            allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
-            document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
             showCongrats(character, newBoxContainer);     
         } else {
             boxCorrect.css("background-color", "red");
@@ -612,6 +608,9 @@ async function updateBoxes(id) {
 
 
 function showCongrats(character, referenceElement) {
+
+    allTimeGamePoints = calculateAllTimeGamePoints(gamePoints);
+    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 
     const congratsBlock = document.createElement('div');
     congratsBlock.classList.add('congrats-block');
