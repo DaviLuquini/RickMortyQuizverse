@@ -1,3 +1,5 @@
+import { getUserPoints } from './UserPoints.js';
+ 
 function togglePassword() {
   var passwordField = document.getElementById("password");
   var eyeClosed = document.getElementById("eyeClosed");
@@ -14,14 +16,16 @@ function togglePassword() {
   }
 }
 
+
 document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault();
-  
+
     const username = document.getElementById('username-login').value;
     const password = document.getElementById('password').value;
     const loadingElement = document.getElementById('loading');
     const buttonText = document.getElementById('button-text');
-  
+    let allTimeGamePoints = 0;
+
     try {
       loadingElement.style.display = 'block';
       buttonText.classList.add('hide-text');
@@ -40,7 +44,15 @@ document.getElementById('login-form').addEventListener('submit', async function(
       if (response.ok) {
         alert('Login successful');
         localStorage.setItem('token', result.token);
-        window.location.href = `../Pages/LandingPage.html`;
+        
+        try {
+            allTimeGamePoints = await getUserPoints(username); 
+            localStorage.setItem('allTimeGamePoints', allTimeGamePoints);
+            window.location.href = `../Pages/LandingPage.html`; 
+        } catch (error) {
+            console.error('Error fetching user points:', error);
+            alert('Could not fetch user points. Please try again later.');
+        }
       } 
       else if(result.code === 'USERNAME_NOT_FOUND') {
          alert('Username not found');

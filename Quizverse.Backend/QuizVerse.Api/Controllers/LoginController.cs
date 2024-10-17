@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using QuizVerse.Platform.Infrastructure.Database;
 using QuizverseBack.Models;
@@ -15,7 +14,7 @@ namespace QuizVerse.Api.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public List<User> Users { get; set; } = [];
+        //public List<User> Users { get; set; } = [];
 
         public LoginController(IConfiguration configuration)
         {
