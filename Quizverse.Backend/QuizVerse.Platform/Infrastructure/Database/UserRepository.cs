@@ -48,6 +48,27 @@ namespace QuizVerse.Platform.Infrastructure.Database
             return userPoints;
         }
 
+        public void UpdateUserPoints(int userId , int newUserPoints)
+        {
+            using var conn = new DbConnection();
+
+            EnsureTableExists(conn.Connection);
+
+            string query = @"SELECT userpoints
+                     FROM public.""Users""
+                     WHERE id = @UserId;";
+
+            var userPoints = conn.Connection.QueryFirstOrDefault<int>(sql: query, param: new { UserId = userId });
+
+            string queryUpdate = @"UPDATE public.""Users""
+                           SET userpoints = @newUserPoints
+                           WHERE id = @UserId;";
+
+            conn.Connection.Execute(
+                sql: queryUpdate,
+                param: new { newUserPoints = newUserPoints, UserId = userId });
+        }
+
         private void EnsureTableExists(IDbConnection connection)
         {
             string checkTableQuery = @"SELECT EXISTS (

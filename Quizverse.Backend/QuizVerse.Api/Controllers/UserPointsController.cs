@@ -8,17 +8,24 @@ namespace QuizVerse.Api.Controllers
     [Route("api/[controller]")]
     public class UserPointsController : Controller
     {
-        //Ao dar login o site da um GET no userpoints do usuario
-        //Ao acertar um personagem o site da um PUT no userpoints do usuario
         [HttpGet]
         public IActionResult UserPoints([FromQuery] string userName)
         {
-
             var userId = GetUserId(userName);
 
             var userPoints = GetUserPoints(userId);
 
-            return Ok(new { userPoints });
+            return Ok(new { Points = userPoints });
+        }
+
+        [HttpPut]
+        public IActionResult UpdateUserPoints([FromQuery] string userName, int newUserPoints)
+        {
+            var userId = GetUserId(userName);
+
+           UpdateUserPoints(userId, newUserPoints);
+
+            return Ok();
         }
 
         private int GetUserId(string userName)
@@ -43,6 +50,12 @@ namespace QuizVerse.Api.Controllers
         {
             var repository = new UserRepository();
             return repository.GetUserPoints(userId);
+        }
+
+        private void UpdateUserPoints(int userId, int newUserPoints)
+        {
+            var repository = new UserRepository();
+            repository.UpdateUserPoints(userId, newUserPoints);
         }
     }
 }

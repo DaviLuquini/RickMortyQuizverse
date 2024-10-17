@@ -1,3 +1,5 @@
+import { getUserPoints } from './UserPoints.js';
+ 
 function togglePassword() {
   var passwordField = document.getElementById("password");
   var eyeClosed = document.getElementById("eyeClosed");
@@ -84,22 +86,4 @@ window.onload = function () {
     buttonBack.addEventListener('click', function () {
         window.location.href = '../Pages/LandingPage.html';
     });
-}
-
-async function getUserPoints(userName) {
-  const response = await fetch(`https://localhost:7295/api/UserPoints?userName=${encodeURIComponent(userName)}`, {
-      method: 'GET',
-      headers: {
-          'Accept': '*/*',
-          'Content-Type': 'application/json'
-      }
-  });
-
-  if (!response.ok) {
-    const errorDetail = await response.text(); 
-    throw new Error(`Network response was not ok: ${response.status} - ${errorDetail}`);
-  }
-
-  const result = await response.json();
-  return result; 
 }
