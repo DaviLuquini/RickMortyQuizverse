@@ -11,7 +11,7 @@ export function calculateTriesGamePoints(tries, clueUsed1, clueUsed2) {
     }
 
     if(clueUsed2) {
-        userPoints -= 60;
+        userPoints -= 50;
     }
 
     if(userPoints <= 0) {
