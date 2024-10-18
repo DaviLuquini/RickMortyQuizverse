@@ -15,7 +15,10 @@ namespace QuizVerse.Api.Controllers
         {
             var repository = new UserRepository();
             var users = GetUsers();
-            bool userExists = users.Any(user => user.Name == request.Username);
+
+            string requestUsernameLower = request.Username.ToLower();
+
+            bool userExists = users.Any(user => user.Name == requestUsernameLower);
 
             if (userExists)
             {
@@ -25,7 +28,7 @@ namespace QuizVerse.Api.Controllers
                 });
             }
 
-            if (request.Username.Length > 20)
+            if (requestUsernameLower.Length > 20)
             {
                 return BadRequest(new {
                     code = "USERNAME_TOO_LONG",
@@ -49,7 +52,7 @@ namespace QuizVerse.Api.Controllers
                 });
             }
 
-            var newUser = new User(0, request.Username, request.Password);
+            var newUser = new User(0, requestUsernameLower, request.Password);
             repository.AddUser(newUser);
 
             return Ok(new { message = "Register successful!", user = newUser });
