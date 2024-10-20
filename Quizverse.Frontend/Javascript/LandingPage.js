@@ -29,6 +29,9 @@ async function getSessionInfo() {
     const result = await response.json();
 
     if (response.ok && result.message) {
+        var loginWarning = document.getElementById('login-warning');
+        loginWarning.style.display = 'none';
+
         const usernameMatch = result.message.match(/Logged in as (\w+)/);
         const username = usernameMatch ? usernameMatch[1] : null;
         allTimeGamePoints = await getUserPoints(username);
@@ -375,7 +378,7 @@ function handleHintBallAction2() {
 
     function handleClick() {
         handleHintBallAction2Called = true;
-        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
         hintBall2.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
@@ -613,10 +616,7 @@ async function showCongrats(character, referenceElement) {
 
     hintBall1.style.pointerEvents = 'none';
     hintBall2.style.pointerEvents = 'none';
-
-    allTimeGamePoints = await calculateAllTimeGamePoints(gamePoints);
-    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
-
+    
     const congratsBlock = document.createElement('div');
     congratsBlock.classList.add('congrats-block');
     
@@ -670,5 +670,8 @@ async function showCongrats(character, referenceElement) {
         location.reload();
     });
 
-    $(referenceElement).after(congratsBlock);
+    $(referenceElement).after(congratsBlock);7
+
+    allTimeGamePoints = await calculateAllTimeGamePoints(gamePoints);
+    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 }
