@@ -14,8 +14,10 @@ var bonusPoints = 0;
 let tries = 0;
 let gamePoints = 0;
 let allTimeGamePoints = 0;
-let remainingTries = 0;
+let remainingTries;
 
+const hintBall1 = document.querySelector('.hint-ball-1');
+const hintBall2 = document.querySelector('.hint-ball-2');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
@@ -27,6 +29,9 @@ async function getSessionInfo() {
     const result = await response.json();
 
     if (response.ok && result.message) {
+        var loginWarning = document.getElementById('login-warning');
+        loginWarning.style.display = 'none';
+
         const usernameMatch = result.message.match(/Logged in as (\w+)/);
         const username = usernameMatch ? usernameMatch[1] : null;
         allTimeGamePoints = await getUserPoints(username);
@@ -248,9 +253,6 @@ async function getAllCharactersApi() {
     const hardMode = document.getElementById('hard-mode');
     const impossibleMode = document.getElementById('impossible-mode');
 
-    const hintBall1 = document.querySelector('.hint-ball-2');
-    const hintBall2 = document.querySelector('.hint-ball-2');
-
     buttonGame.addEventListener('click', function () {
         gameModesContainer.style.display = 'flex';
         buttonBack.style.display = 'block';
@@ -376,7 +378,7 @@ function handleHintBallAction2() {
 
     function handleClick() {
         handleHintBallAction2Called = true;
-        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
         hintBall2.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
@@ -563,16 +565,22 @@ async function updateBoxes(id) {
             newBoxContainer.prependTo("#characterBlocks");
 
             if(tries <= 5) {
-                bonusPoints = 150;
-                gamePoints += bonusPoints;
+                if(gamePoints != 0) {
+                    bonusPoints = 150;
+                    gamePoints += bonusPoints;
+                }
             }
             else if(tries <= 10) {
-                bonusPoints = 100;
-                gamePoints += bonusPoints;
+                if(gamePoints != 0) {
+                   bonusPoints = 100;
+                   gamePoints += bonusPoints;
+                }
             }
             else if (tries <= 15) {
-                bonusPoints = 50;
-                gamePoints += bonusPoints;
+                if(gamePoints != 0) {
+                   bonusPoints = 50;
+                   gamePoints += bonusPoints;
+                }
             }
 
             if(easyGameMode) {
@@ -606,9 +614,9 @@ async function updateBoxes(id) {
 
 async function showCongrats(character, referenceElement) {
 
-    allTimeGamePoints = await calculateAllTimeGamePoints(gamePoints);
-    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
-
+    hintBall1.style.pointerEvents = 'none';
+    hintBall2.style.pointerEvents = 'none';
+    
     const congratsBlock = document.createElement('div');
     congratsBlock.classList.add('congrats-block');
     
@@ -630,7 +638,7 @@ async function showCongrats(character, referenceElement) {
     p4.innerHTML = 'You got: <strong>' + bonusPoints + '</strong>' + ' bonus points';
 
     const p5 = document.createElement('p');
-    p5.innerHTML = 'You lost: <strong>' + tries + '</strong>' + ' points (1 point for each try)';
+    p5.innerHTML = 'You lost: <strong>' + tries*3 + '</strong>' + ' points (3 point for each try)';
 
     const p6 = document.createElement('p');
 
@@ -662,5 +670,8 @@ async function showCongrats(character, referenceElement) {
         location.reload();
     });
 
-    $(referenceElement).after(congratsBlock);
+    $(referenceElement).after(congratsBlock);7
+
+    allTimeGamePoints = await calculateAllTimeGamePoints(gamePoints);
+    document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 }

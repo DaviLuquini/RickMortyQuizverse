@@ -11,24 +11,20 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController : ControllerBase
+    public class LoginController(IConfiguration configuration) : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        //public List<User> Users { get; set; } = [];
-
-        public LoginController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        private readonly IConfiguration _configuration = configuration;
 
         [HttpPost]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var users = GetUsers();
 
+            string requestUsernameLower = request.Username.ToLower();
+
             foreach (var user in users)
             {
-                if (request.Username == user.Name && request.Password == user.Password)
+                if (requestUsernameLower == user.Name && request.Password == user.Password)
                 {
                     // Gera o token JWT
                     var token = GenerateJwtToken(user);
@@ -39,7 +35,7 @@ namespace QuizVerse.Api.Controllers
 
                     return Ok(new { token, message = "Login successful" });
                 }
-                else if (request.Username == user.Name && request.Password != user.Password)
+                else if (requestUsernameLower == user.Name && request.Password != user.Password)
                 {
                     return Unauthorized(new {
                         code = "WRONG_PASSWORD",

@@ -243,6 +243,32 @@ body {
   transform: translateY(-2px);
 }
 
+.profileImageBox {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 250px; 
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  padding: 20px; 
+  z-index: 1;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  left: 175px;
+}
+
+.selectableImage {
+  width: 70px;
+  height: 70px; 
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.selectableImage:hover {
+  border: 3px solid #007bff; 
+}
+
 .button-game {
   width: 320px;
   height: 60px;

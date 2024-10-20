@@ -1,6 +1,6 @@
 import { getUserPoints } from './UserPoints.js';
  
-function togglePassword() {
+window.togglePassword = function() {
   var passwordField = document.getElementById("password");
   var eyeClosed = document.getElementById("eyeClosed");
   var eyeOpen = document.getElementById("eyeOpen");
