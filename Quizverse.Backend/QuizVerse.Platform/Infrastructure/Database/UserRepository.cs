@@ -48,26 +48,52 @@ namespace QuizVerse.Platform.Infrastructure.Database
             return userPoints;
         }
 
+        public int GetUserImage(int userId)
+        {
+            using var conn = new DbConnection();
+
+            EnsureTableExists(conn.Connection);
+
+            string query = @"SELECT userimage
+                     FROM public.""Users""
+                     WHERE id = @UserId;";
+
+            int userImage = conn.Connection.QueryFirstOrDefault<int>(sql: query, param: new { UserId = userId });
+
+            return userImage;
+        }
+
         public void UpdateUserPoints(int userId , int newUserPoints)
         {
             using var conn = new DbConnection();
 
             EnsureTableExists(conn.Connection);
 
-            string query = @"SELECT userpoints
-                     FROM public.""Users""
-                     WHERE id = @UserId;";
-
-            var userPoints = conn.Connection.QueryFirstOrDefault<int>(sql: query, param: new { UserId = userId });
-
             string queryUpdate = @"UPDATE public.""Users""
                            SET userpoints = @newUserPoints
                            WHERE id = @UserId;";
 
+
             conn.Connection.Execute(
                 sql: queryUpdate,
-                param: new { newUserPoints = newUserPoints, UserId = userId });
+                param: new { newUserPoints, UserId = userId });
         }
+
+        public void UpdateUserImage(int userId, int newUserImage)
+        {
+            using var conn = new DbConnection();
+
+            EnsureTableExists(conn.Connection);
+
+            string queryUpdate = @"UPDATE public.""Users""
+                           SET userimage = @newUserImage
+                           WHERE id = @UserId;";
+
+            conn.Connection.Execute(
+                sql: queryUpdate,
+                param: new { newUserImage, UserId = userId });
+        }
+
 
         private void EnsureTableExists(IDbConnection connection)
         {
@@ -85,7 +111,8 @@ namespace QuizVerse.Platform.Infrastructure.Database
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(100) NOT NULL,
                     password VARCHAR(100) NOT NULL,
-                    userPoints INT DEFAULT 0
+                    userpoints INT DEFAULT 0,
+                    userimage INT DEFAULT 0
                 );";
                 connection.Execute(createTableQuery);
             }

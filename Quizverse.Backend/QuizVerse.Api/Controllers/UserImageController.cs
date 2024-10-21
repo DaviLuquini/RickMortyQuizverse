@@ -6,24 +6,24 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserPointsController : Controller
+    public class UserImageController : Controller
     {
         [HttpGet]
-        public IActionResult UserPoints([FromQuery] string userName)
+        public IActionResult UserImage([FromQuery] string userName)
         {
             var userId = GetUserId(userName);
 
-            var userPoints = GetUserPoints(userId);
+            int userImage = GetUserImage(userId);
 
-            return Ok(new { Points = userPoints });
+            return Ok(new { Image = userImage });
         }
 
         [HttpPut]
-        public IActionResult UpdateUserPoints([FromQuery] string userName, int newUserPoints)
+        public IActionResult UpdateUserImage([FromQuery] string userName, int newUserImage)
         {
             var userId = GetUserId(userName);
 
-           UpdateUserPoints(userId, newUserPoints);
+            UpdateUserImage(userId, newUserImage);
 
             return Ok();
         }
@@ -44,16 +44,16 @@ namespace QuizVerse.Api.Controllers
             throw new Exception("User not found");
         }
 
-        private int GetUserPoints(int userId)
+        private int GetUserImage(int userId)
         {
             var repository = new UserRepository();
-            return repository.GetUserPoints(userId);
+            return repository.GetUserImage(userId);
         }
 
-        private void UpdateUserPoints(int userId, int newUserPoints)
+        private void UpdateUserImage(int userId, int newUserImage)
         {
             var repository = new UserRepository();
-            repository.UpdateUserPoints(userId, newUserPoints);
+            repository.UpdateUserImage(userId, newUserImage);
         }
     }
 }

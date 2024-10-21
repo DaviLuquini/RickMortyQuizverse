@@ -1,3 +1,5 @@
+import { getUserImage } from './UserImage.js';
+import { setProfileImage } from './LoginDropdown.js';
 import { calculateTriesGamePoints, getUserPoints } from './UserPoints.js';
 import { calculateAllTimeGamePoints } from './UserPoints.js';
 
@@ -34,7 +36,12 @@ async function getSessionInfo() {
 
         const usernameMatch = result.message.match(/Logged in as (\w+)/);
         const username = usernameMatch ? usernameMatch[1] : null;
+
         allTimeGamePoints = await getUserPoints(username);
+
+        var UserImage = await getUserImage(username, true);
+        setProfileImage(UserImage);
+
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 
         if (username) {
@@ -48,7 +55,6 @@ async function getSessionInfo() {
 }
 
 getSessionInfo();
-
 
 async function getAllCharactersApi() {
     const allCharacters = [];
