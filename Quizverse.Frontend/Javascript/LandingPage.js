@@ -39,8 +39,8 @@ async function getSessionInfo() {
 
         allTimeGamePoints = await getUserPoints(username);
 
-        var UserImage = await getUserImage(username, true);
-        setProfileImage(UserImage);
+        var UserImage = await getUserImage(username);
+        setProfileImage(UserImage, true);
 
         document.getElementById('allTime-gamePoints').innerText = `All Time Points:  ${allTimeGamePoints}`;
 
@@ -243,10 +243,13 @@ async function getAllCharactersApi() {
     const buttonGameProgress = document.querySelector('.button-game-progress');
     const buttonSearch = document.querySelector('.button-search');
     const buttonBack = document.querySelector('.button-goBack');
+    const buttonHowToPlay = document.querySelector('.button-howTo-play');
     const gameModesContainer = document.querySelector('.game-modes-container')
     const gameModes = document.querySelectorAll('.game-mode-box');
     const hintBox = document.querySelector('.hintBox');
 
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
     const subtitle = document.getElementById('subtitle')
     const gamePoints = document.getElementById('gamePoints');
     const playersTable = document.getElementById('playersTable');
@@ -262,6 +265,7 @@ async function getAllCharactersApi() {
     buttonGame.addEventListener('click', function () {
         gameModesContainer.style.display = 'flex';
         buttonBack.style.display = 'block';
+        buttonHowToPlay.style.display = 'block';
         buttonGame.style.display = 'none';
         subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
@@ -283,6 +287,7 @@ async function getAllCharactersApi() {
     buttonBack.addEventListener('click', function () {
         buttonSearch.style.display = 'none';
         buttonBack.style.display = 'none';
+        buttonHowToPlay.style.display = 'none';
         gameModesContainer.style.display = 'none';
         hintBox.style.display = 'none';
         gamePoints.style.display = 'none';
@@ -302,6 +307,16 @@ async function getAllCharactersApi() {
         if(handleHintBallAction1Called || handleHintBallAction2Called) {
             location.reload();
         }
+    });
+
+    buttonHowToPlay.addEventListener('click', function() {
+        modal.style.display = 'block';
+        overlay.style.display = 'block';
+    });
+    
+    overlay.addEventListener('click', function() {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
     });
 
     easyMode.addEventListener('click', function () {
@@ -369,7 +384,10 @@ function handleHintBallAction1() {
 
     function handleClick() {
         handleHintBallAction1Called = true;
-        hintBall1.innerHTML = `<strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>`;
+        hintBall1.innerHTML = `
+            <strong style="font-size: 24px;">${correctCharacter.name.charAt(0)}</strong>
+            <div class="hint-text"><strong>First Letter</strong></div>
+        `;
         hintBall1.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
@@ -384,7 +402,9 @@ function handleHintBallAction2() {
 
     function handleClick() {
         handleHintBallAction2Called = true;
-        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        hintBall2.innerHTML = `<img src="${correctCharacter.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+          <div class="hint-text"><strong>Image Clue</strong></div>
+        `;
         hintBall2.removeEventListener('click', handleClick);
         gamePoints = calculateTriesGamePoints(tries, handleHintBallAction1Called, handleHintBallAction2Called);
         document.getElementById('gamePoints').innerText = `Current Points: ${gamePoints}`;
