@@ -1,3 +1,5 @@
+import { updateUserImage } from "./UserImage.js";
+
 function toggleDropdown() {
   var dropdown = document.getElementById('login-dropdown');
   var profileImageBox = document.getElementById("profileImageBox");
@@ -24,8 +26,41 @@ function changeImage() {
       dropdown.style.display = 'none';
 }
 
+export function setProfileImage(intValue, isLoginCall = false) {
+  var imageSrc = getSrcFromInt(intValue);
 
-function setProfileImage(imageSrc) {
+  if (isLoginCall) {
+    updateProfileImageElement(imageSrc); 
+    return;
+  }
+  updateProfileImageElement(imageSrc); 
+
+  updateUserImage(intValue); 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginIcon = document.getElementById('login-icon');
+  loginIcon.addEventListener('click', toggleDropdown);
+
+  const loginButton = document.getElementById('login-button');
+  loginButton.addEventListener('click', login);
+
+  const registerButton = document.getElementById('register-button');
+  registerButton.addEventListener('click', register);
+
+  const changeImageButton = document.getElementById('changeImage-button');
+  changeImageButton.addEventListener('click', changeImage);
+
+  const selectableImages = document.querySelectorAll('.selectableImage');
+  selectableImages.forEach(image => {
+      image.addEventListener('click', () => {
+          const intValue = image.getAttribute('data-value');
+          setProfileImage(intValue);
+      });
+  });
+});
+
+function updateProfileImageElement(imageSrc) {
   var profileImage = document.getElementById("login-icon");
   profileImage.src = imageSrc;
 
@@ -37,6 +72,22 @@ function setProfileImage(imageSrc) {
 }
 
 
+function getSrcFromInt(intValue) {
+    switch (parseInt(intValue, 10)) {
+        case 1:
+            return "../css/Assets/Characters/rickImage.jpeg";
+        case 2:
+            return "../css/Assets/Characters/mortyImage.jpeg";
+        case 3:
+            return "../css/Assets/Characters/summerImage.jpeg";
+        case 4:
+            return "../css/Assets/Characters/bethImage.jpeg";
+        case 5: 
+            return "../css/Assets/Characters/jerryImage.jpeg";
+        default:
+            return "../css/Assets/iconLogin.png"; 
+    }
+}
 
 function hideElements(event) {
   if (!event.target.matches('#login-icon') && !event.target.closest('#login-dropdown') && !event.target.closest('#profileImageBox')) {

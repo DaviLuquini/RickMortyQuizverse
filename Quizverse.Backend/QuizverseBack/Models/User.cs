@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public string Password { get; set; }
         public int UserPoints { get; set; }
+        public int UserImage { get; set; }
 
         public User() { } 
 

@@ -1,7 +1,3 @@
-//100 - nTentativas - dica1 - dica2 = pontuação
-// Se achado com menos de 3 tentativas = + 150 pontos de bonus
-// Se achado com menos de 5 tentativas = + 100 pontos de bonus
-// Se achado com menos de 10 tentativas = + 50 pontos de bonus
 let allTimeGamePoints = 0;
 
 export function calculateTriesGamePoints(tries, clueUsed1, clueUsed2) {

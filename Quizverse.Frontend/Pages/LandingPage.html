@@ -24,21 +24,21 @@
 
     <h1 id="userName"><strong>Logged as: Guest</strong></h1>
 
-    <img id="login-icon" src="../css/Assets/iconLogin.png" onclick="toggleDropdown()">
+    <img id="login-icon" src="../css/Assets/iconLogin.png">
 
     <div id="login-dropdown" class="loginDropdown-content">
         <p><strong>Login or Register?</strong></p>
-        <button onclick="login()">Login</button>
-        <button onclick="register()">Register</button>
-        <button onclick="changeImage()">Change Image</button>
+        <button id="login-button">Login</button>
+        <button id="register-button">Register</button>
+        <button id="changeImage-button">Change Image</button>
     </div>
 
     <div class="profileImageBox" id="profileImageBox">
-        <img src="../css/Assets/Characters/rickImage.jpeg" alt="Rick Image" class="selectableImage" onclick="setProfileImage('../css/Assets/Characters/rickImage.jpeg')">
-        <img src="../css/Assets/Characters/mortyImage.jpeg" alt="Morty Image" class="selectableImage" onclick="setProfileImage('../css/Assets/Characters/mortyImage.jpeg')">
-        <img src="../css/Assets/Characters/summerImage.jpeg" alt="Summer Image" class="selectableImage" onclick="setProfileImage('../css/Assets/Characters/summerImage.jpeg')">
-        <img src="../css/Assets/Characters/bethImage.jpeg" alt="Beth Image" class="selectableImage" onclick="setProfileImage('../css/Assets/Characters/bethImage.jpeg')">
-        <img src="../css/Assets/Characters/jerryImage.jpeg" alt="Jerry Image" class="selectableImage" onclick="setProfileImage('../css/Assets/Characters/jerryImage.jpeg')">
+        <img src="../css/Assets/Characters/rickImage.jpeg" alt="Rick Image" class="selectableImage" data-value="1">
+        <img src="../css/Assets/Characters/mortyImage.jpeg" alt="Morty Image" class="selectableImage" data-value="2">
+        <img src="../css/Assets/Characters/summerImage.jpeg" alt="Summer Image" class="selectableImage" data-value="3">
+        <img src="../css/Assets/Characters/bethImage.jpeg" alt="Beth Image" class="selectableImage" data-value="4">
+        <img src="../css/Assets/Characters/jerryImage.jpeg" alt="Jerry Image" class="selectableImage" data-value="5">
     </div>
 
     <h3 id="subtitle">Guess Rick & Morty characters</h3>
@@ -74,6 +74,62 @@
     </div>
 
     <div id="button-back" class="button-goBack">Go Back</div>
+
+    <div id="button-howToPlay" class="button-howTo-play">How to Play?</div>
+
+    <div id="how-to-play" class="modal">
+        <div class="how-to-play-content">
+            <h1>How to Play?</h1>
+            <p>Guess the character from the "Rick and Morty Quizverse" game. The challenge has 4 difficulty levels: easy, medium, hard, and impossible. Each difficulty level has its own point multiplier.</p>
+            <p>Simply type the name of a character to reveal their traits.</p>
+            <p>The color of the squares will change to show how close you were to guessing the correct character:</p>
+            <ul>
+                <li><span class="green">Green</span> means you guessed the trait exactly right.</li>
+                <li><span class="red">Red</span> means there is no relation between your guess and the correct trait.</li>
+            </ul>
+        
+            <h2>Traits</h2>
+            <p>Here are the details of each trait column:</p>
+            <ul>
+                <li><strong>Status:</strong> Possible values: Alive, Dead, or Unknown.</li>
+                <li><strong>Gender:</strong> Possible values: Male and Female.</li>
+                <li><strong>Species:</strong> Possible values: Human, Gromflomite, Gazorpian, etc.</li>
+                <li><strong>Origin:</strong> Where the character is originally from. <br> Possible values: C-137, C-500A, etc.</li>
+                <li><strong>Location:</strong> The current location of the character. <br> Possible values: The Citadel of Ricks, Earth, etc.</li>
+            </ul>
+        
+            <h2>Hints</h2>
+            <p>To help you find the character, you can unlock hints after several attempts:</p>
+            <ul>
+                <li><strong>First letter of the character:</strong> Using this hint will cost you 20 points.</li>
+                <li><strong>Image:</strong> Shows the character's image – Using this hint will cost you 50 points.</li>
+            </ul>
+        
+            <h2>Points</h2>
+            <p>Earn bonus points based on your number of attempts:</p>
+            <ul>
+                <li>Guess the character within <strong>15 attempts or less</strong> to earn <strong>50 bonus points</strong>.</li>
+                <li>Guess the character within <strong>10 attempts or less</strong> to earn <strong>100 bonus points</strong>.</li>
+                <li>Guess the character within <strong>5 attempts or less</strong> to earn <strong>150 bonus points</strong>.</li>
+            </ul>
+            <p>The top 10 players with the most points will appear on the <strong>Best Players</strong> leaderboard!</p>
+        
+            <h2>Example</h2>
+            <p>Let's say the correct character is <strong>Rick Sanchez</strong>. If you guess <strong>Jerry</strong>, these traits will appear:</p>
+            <ul>
+                <li><strong>Status:</strong> <span class="green">Green</span> – Both are alive.</li>
+                <li><strong>Species:</strong> <span class="green">Green</span> – Both are humans.</li>
+                <li><strong>Gender:</strong> <span class="green">Green</span> – Both are male.</li>
+                <li><strong>Origin:</strong> <span class="red">Red</span> – Jerry is not from the same origin dimension as Rick.</li>
+                <li><strong>Location:</strong> <span class="green">Green</span> – Both are in the same location.</li>
+            </ul>
+            <p>If you had guessed <strong>Rick Sanchez</strong>, all squares would turn <span class="green">green</span>, indicating that you got everything right!</p>
+        
+            <h2>GOOD LUCK AND HAVE FUN!</h2>
+        </div>
+    </div>
+      
+    <div id="overlay" class="overlay"></div>
 
     <h4 id="gamePoints">Current Points: </h4>
 
@@ -120,12 +176,34 @@
             <p class="points-multiplier">Points: 5x multiplier</p>
         </div>
     </div>
+
+    <div class="info-button" id="info-button">
+        <img src="../css/Assets/infoButton.png">
+    </div>
+
+    <div id="information" class="modal">
+        <div class="information-content">
+         <h1>About</h1>
+           <p>Guess a different character from the series <strong>Rick and Morty</strong> every day.</p>
+           <p><strong>Rick Morty Quizverse</strong> was created within the legal policies of <a href="https://www.adultswim.com/" target="_blank">Adult Swim</a>, using assets belonging to Adult Swim. Adult Swim does not endorse or sponsor this project.</p>
+           <p>Heavily inspired by these amazing games: <a href="https://wordly.org/" target="_blank">Wordle</a>, <a href="https://loldle.net/" target="_blank">Loldle</a>, <a href="https://pokedle.com/" target="_blank">Pokedle</a>, <a href="https://dotadle.com/" target="_blank">Dotadle</a>.</p>
+           <p>The website uses cookies to collect statistics and show advertisements. More information in <a href="#privacy-policy" target="_blank">Privacy Policy</a>.</p>
+
+           <h2>Feedback / Questions</h2>
+           <p>Do you have any suggestions? Found a bug? Just want to say hi? 😎</p>
+           <p>Send an email in English to <a href="mailto:rickmortyquizverse@gmail.com">rickmortyquizverse@gmail.com</a>.</p>
     
-    
+           <p>If you want to support the game, you can buy me a coffee! ☕</p>
+
+           <p>Also support me on <a href="https://www.linkedin.com/in/daviluquini/" target="_blank">LinkedIn</a> & <a href="https://github.com/DaviLuquini" target="_blank">GitHub</a>!</p>
+
+           <p>Cheers!<br>Luquini 😎</p>
+           <p>0.027</p>
+      </div>
+    </div>
 
     <script src="../Javascript/LoginBox.js"></script>
-    <script src="../Javascript/LandingPage.js"></script>
-    <script src="../Javascript/LoginDropdown.js"></script>
+    <script type="module" src="../Javascript/LoginDropdown.js"></script>
     <script type="module" src="../Javascript/LandingPage.js"></script>
 </body>
 

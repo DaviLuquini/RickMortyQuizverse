@@ -440,16 +440,21 @@ body {
   display: none;
   width: 260px;
   height: 120px;
-  background-color: #41e932;
-  border: 3px solid #286f2a;
-  border-radius: 10px;
+  background-color: #5e9c00; 
+  border: 2px solid #00ff08; 
+  border-radius: 6px;
   margin: 50px auto;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   right: 25px;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   top: -70px;
+  padding: 10px;
+  color: #ffffff; 
+  font-family: 'Arial', sans-serif; 
+  font-size: 14px;
+  text-align: center;
 }
 
 .hint-ball-1 {
@@ -543,6 +548,71 @@ body {
   transform: scale(1);
 }
 
+.button-howTo-play {
+  display: none;
+  min-width: 100px;
+  min-height: 40px;
+  padding: 2px;
+  position: absolute;
+  top: 250px;
+  right: 450px;
+  background-color: #28a745; 
+  color: white; 
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-howTo-play:hover {
+  background-color: #218838; 
+  transform: scale(1.05);
+}
+
+.button-howTo-play:active {
+  background-color: #1e7e34; 
+  transform: scale(1);
+}
+
+#how-to-play {
+  display: none;
+  position: fixed;
+  max-height: 650px;
+  max-width: 700px;
+  background-color: white;
+  transform: translate(60%, 5%); 
+  z-index: 1001; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 5px solid #008e18;
+  padding: 2px;
+}
+
+#how-to-play-content {
+  font-size: 16px;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); 
+  z-index: 1000; 
+}
 
 /* Box with the character */
 .boxContainer {
@@ -625,6 +695,41 @@ body {
 .congrats-block strong {
   color: #333;
 }
+
+.info-button img {
+  max-width: 70px;
+  max-height: 70px;
+  position: relative;
+  top: 140px;
+  left: 694px;
+  border: none;
+  cursor: pointer;
+
+  transition: transform 0.6s ease, color 0.6s ease;
+  transform-origin: center;
+}
+
+.info-button:hover {
+  transform: scale(1.02);
+}
+
+#information {
+  display: none;
+  position: fixed;
+  max-height: 650px;
+  max-width: 700px;
+  background-color: white;
+  transform: translate(60%, 5%); 
+  z-index: 1001; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 5px solid #008e18;
+  padding: 2px;
+}
+
+#information-content {
+  font-size: 16px;
+}
+
 
 .hidden {
   visibility: hidden;
