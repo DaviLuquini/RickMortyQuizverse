@@ -79,14 +79,53 @@
 
     <div id="modal" class="modal">
         <div class="modal-content">
-          <h2>How To Play</h2>
-          <p>To play the game, follow these steps:</p>
-          <ol>
-            <li>Step 1: Do this.</li>
-            <li>Step 2: Do that.</li>
-            <li>Step 3: Complete the task.</li>
-          </ol>
-          <button id="closeModal">Close</button>
+            <h1>How to Play?</h1>
+            <p>Guess the character from the "Rick and Morty Quizverse" game. The challenge has 4 difficulty levels: easy, medium, hard, and impossible. Each difficulty level has its own point multiplier.</p>
+            <p>Simply type the name of a character to reveal their traits.</p>
+            <p>The color of the squares will change to show how close you were to guessing the correct character:</p>
+            <ul>
+                <li><span class="green">Green</span> means you guessed the trait exactly right.</li>
+                <li><span class="red">Red</span> means there is no relation between your guess and the correct trait.</li>
+            </ul>
+        
+            <h2>Traits</h2>
+            <p>Here are the details of each trait column:</p>
+            <ul>
+                <li><strong>Status:</strong> Possible values: Alive, Dead, or Unknown.</li>
+                <li><strong>Gender:</strong> Possible values: Male and Female.</li>
+                <li><strong>Species:</strong> Possible values: Human, Gromflomite, Gazorpian, etc.</li>
+                <li><strong>Origin:</strong> Where the character is originally from. <br> Possible values: C-137, C-500A, etc.</li>
+                <li><strong>Location:</strong> The current location of the character. <br> Possible values: The Citadel of Ricks, Earth, etc.</li>
+            </ul>
+        
+            <h2>Hints</h2>
+            <p>To help you find the character, you can unlock hints after several attempts:</p>
+            <ul>
+                <li><strong>First letter of the character:</strong> Using this hint will cost you 20 points.</li>
+                <li><strong>Image:</strong> Shows the character's image – Using this hint will cost you 50 points.</li>
+            </ul>
+        
+            <h2>Points</h2>
+            <p>Earn bonus points based on your number of attempts:</p>
+            <ul>
+                <li>Guess the character within <strong>15 attempts or less</strong> to earn <strong>50 bonus points</strong>.</li>
+                <li>Guess the character within <strong>10 attempts or less</strong> to earn <strong>100 bonus points</strong>.</li>
+                <li>Guess the character within <strong>5 attempts or less</strong> to earn <strong>150 bonus points</strong>.</li>
+            </ul>
+            <p>The top 10 players with the most points will appear on the <strong>Best Players</strong> leaderboard!</p>
+        
+            <h2>Example</h2>
+            <p>Let's say the correct character is <strong>Rick Sanchez</strong>. If you guess <strong>Jerry</strong>, these traits will appear:</p>
+            <ul>
+                <li><strong>Status:</strong> <span class="green">Green</span> – Both are alive.</li>
+                <li><strong>Species:</strong> <span class="green">Green</span> – Both are humans.</li>
+                <li><strong>Gender:</strong> <span class="green">Green</span> – Both are male.</li>
+                <li><strong>Origin:</strong> <span class="red">Red</span> – Jerry is not from the same origin dimension as Rick.</li>
+                <li><strong>Location:</strong> <span class="green">Green</span> – Both are in the same location.</li>
+            </ul>
+            <p>If you had guessed <strong>Rick Sanchez</strong>, all squares would turn <span class="green">green</span>, indicating that you got everything right!</p>
+        
+            <h2>GOOD LUCK AND HAVE FUN!</h2>
         </div>
     </div>
       
