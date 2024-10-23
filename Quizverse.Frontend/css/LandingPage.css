@@ -579,9 +579,9 @@ body {
   transform: scale(1);
 }
 
-.modal {
+#how-to-play {
   display: none;
-  position: relative;
+  position: fixed;
   max-height: 650px;
   max-width: 700px;
   background-color: white;
@@ -592,7 +592,7 @@ body {
   padding: 2px;
 }
 
-.modal-content {
+#how-to-play-content {
   font-size: 16px;
 }
 
@@ -695,6 +695,41 @@ body {
 .congrats-block strong {
   color: #333;
 }
+
+.info-button img {
+  max-width: 70px;
+  max-height: 70px;
+  position: relative;
+  top: 140px;
+  left: 694px;
+  border: none;
+  cursor: pointer;
+
+  transition: transform 0.6s ease, color 0.6s ease;
+  transform-origin: center;
+}
+
+.info-button:hover {
+  transform: scale(1.02);
+}
+
+#information {
+  display: none;
+  position: fixed;
+  max-height: 650px;
+  max-width: 700px;
+  background-color: white;
+  transform: translate(60%, 5%); 
+  z-index: 1001; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 5px solid #008e18;
+  padding: 2px;
+}
+
+#information-content {
+  font-size: 16px;
+}
+
 
 .hidden {
   visibility: hidden;

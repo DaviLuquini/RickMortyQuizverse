@@ -244,11 +244,13 @@ async function getAllCharactersApi() {
     const buttonSearch = document.querySelector('.button-search');
     const buttonBack = document.querySelector('.button-goBack');
     const buttonHowToPlay = document.querySelector('.button-howTo-play');
+    const buttonInfo = document.querySelector('.info-button');
     const gameModesContainer = document.querySelector('.game-modes-container')
     const gameModes = document.querySelectorAll('.game-mode-box');
     const hintBox = document.querySelector('.hintBox');
 
-    const modal = document.getElementById('modal');
+    const howToPlay = document.getElementById('how-to-play');
+    const information = document.getElementById('information');
     const overlay = document.getElementById('overlay');
     const subtitle = document.getElementById('subtitle')
     const gamePoints = document.getElementById('gamePoints');
@@ -266,6 +268,7 @@ async function getAllCharactersApi() {
         gameModesContainer.style.display = 'flex';
         buttonBack.style.display = 'block';
         buttonHowToPlay.style.display = 'block';
+        buttonInfo.style.display = 'none';
         buttonGame.style.display = 'none';
         subtitle.style.visibility = 'hidden';
         buttonGameProgress.style.display = 'none';
@@ -294,6 +297,7 @@ async function getAllCharactersApi() {
         buttonGame.style.display = 'block';
         buttonGameProgress.style.display = 'block';
         tableTitle.style.display = 'block';
+        buttonInfo.style.display = 'block';
        
         subtitle.style.visibility = 'visible';
 
@@ -310,12 +314,18 @@ async function getAllCharactersApi() {
     });
 
     buttonHowToPlay.addEventListener('click', function() {
-        modal.style.display = 'block';
+        howToPlay.style.display = 'block';
+        overlay.style.display = 'block';
+    });
+
+    buttonInfo.addEventListener('click', function() {
+        information.style.display = 'block';
         overlay.style.display = 'block';
     });
     
     overlay.addEventListener('click', function() {
-        modal.style.display = 'none';
+        howToPlay.style.display = 'none';
+        information.style.display = 'none';
         overlay.style.display = 'none';
     });
 
