@@ -20,6 +20,9 @@ let remainingTries;
 
 const hintBall1 = document.querySelector('.hint-ball-1');
 const hintBall2 = document.querySelector('.hint-ball-2');
+const languageSelector = document.querySelector('.language-selector');
+const languageToggle = document.querySelector('.language-toggle');
+const languageOptions = document.querySelectorAll('.language-options div');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
@@ -55,6 +58,25 @@ async function getSessionInfo() {
 }
 
 getSessionInfo();
+
+//Language Selector
+languageToggle.addEventListener('click', () => {
+    languageSelector.classList.toggle('active');
+});
+
+languageOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const selectedLanguage = option.innerText;
+        languageToggle.innerText = selectedLanguage;
+        languageSelector.classList.remove('active');
+    });
+});
+
+document.addEventListener('click', (event) => {
+    if (!languageSelector.contains(event.target)) {
+        languageSelector.classList.remove('active');
+    }
+});
 
 async function getAllCharactersApi() {
     const allCharacters = [];
