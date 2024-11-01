@@ -20,6 +20,9 @@ let remainingTries;
 
 const hintBall1 = document.querySelector('.hint-ball-1');
 const hintBall2 = document.querySelector('.hint-ball-2');
+const languageSelector = document.querySelector('.language-selector');
+const languageToggle = document.querySelector('.language-toggle');
+const languageOptions = document.querySelectorAll('.language-options div');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
@@ -56,6 +59,25 @@ async function getSessionInfo() {
 
 getSessionInfo();
 
+//Language Selector
+languageToggle.addEventListener('click', () => {
+    languageSelector.classList.toggle('active');
+});
+
+languageOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const selectedLanguage = option.innerText;
+        languageToggle.innerText = selectedLanguage;
+        languageSelector.classList.remove('active');
+    });
+});
+
+document.addEventListener('click', (event) => {
+    if (!languageSelector.contains(event.target)) {
+        languageSelector.classList.remove('active');
+    }
+});
+
 async function getAllCharactersApi() {
     const allCharacters = [];
     const totalPages = 42;
@@ -66,6 +88,7 @@ async function getAllCharactersApi() {
             const data = await response.json(); 
 
             const characters = data.results.map(characterData => {
+                const episodeCount = characterData.episode ? characterData.episode.length : 0;
                 const location = characterData.location ? new Location(characterData.location.name, characterData.location.url) : null;
                 const origin = characterData.origin ? new Origin(characterData.origin.name, characterData.origin.url) : null;
                 const info = new Info(null, null, null, null); 
@@ -91,7 +114,8 @@ async function getAllCharactersApi() {
                     origin: origin ? origin.name : null,
                     status: characterData.status,
                     species: characterData.species,
-                    location: location ? location.name : null
+                    location: location ? location.name : null,
+                    episodeCount: episodeCount
                 };
             });
 
@@ -551,6 +575,10 @@ async function updateBoxes(id) {
         boxLocation.append(`<div class='box-header'>Location</div><div class='box-content'style='font-size: 14px;'>${capitalizeFirstLetter(character.location)}</div>`);
         newBoxContainer.append(boxLocation);
 
+        const boxEpisodesCount = $(`<div class='box' id='boxEpisodesCount'></div>`);
+        boxEpisodesCount.append(`<div class='box-header'>Episodes</div><div class='box-content'style='font-size: 22px;'>${character.episodeCount}</div>`);
+        newBoxContainer.append(boxEpisodesCount);
+
         const boxCorrect = $(`<div class='box' id='boxCorrect'></div>`);
         boxCorrect.append(`<div class='box-header'>Correct?</div><div class='box-content' style='font-size: 20px;'>${capitalizeFirstLetter(character.name)}</div>`);;
         newBoxContainer.append(boxCorrect);
@@ -575,6 +603,13 @@ async function updateBoxes(id) {
             boxGender.css("background-color", "red");
         }
         adjustFontSize(boxGender.find('.box-content'), character.gender);
+
+        if (character.origin === correctCharacter.origin) {
+            boxOrigin.css("background-color", "green");
+        } else {
+            boxOrigin.css("background-color", "red");
+        }
+        adjustFontSize(boxOrigin.find('.box-content'), character.origin);
         
         if (character.location === correctCharacter.location) {
             boxLocation.css("background-color", "green");
@@ -582,13 +617,15 @@ async function updateBoxes(id) {
             boxLocation.css("background-color", "red");
         }
         adjustFontSize(boxLocation.find('.box-content'), character.location);
-        
-        if (character.origin === correctCharacter.origin) {
-            boxOrigin.css("background-color", "green");
+
+        if (character.episodeCount === correctCharacter.episodeCount) {
+            boxEpisodesCount.css("background-color", "green"); 
+        } else if (Math.abs(character.episodeCount - correctCharacter.episodeCount) <= 10) {
+            boxEpisodesCount.css("background-color", "orange"); 
         } else {
-            boxOrigin.css("background-color", "red");
+            boxEpisodesCount.css("background-color", "red"); 
         }
-        adjustFontSize(boxOrigin.find('.box-content'), character.origin);
+        adjustFontSize(boxEpisodesCount.find('.box-content'), character.episodeCount);
 
 
         if (character.id === correctCharacter.id) {

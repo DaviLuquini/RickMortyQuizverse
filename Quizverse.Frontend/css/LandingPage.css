@@ -42,6 +42,62 @@ body {
   max-height: 20px;
 }
 
+/* Desabilitado por enquanto */
+ .language-selector {
+  display: none;
+  max-width: 200px;
+  margin: 50px auto;
+  position: relative;
+  right: 630px;
+  top: -190px;
+  font-family: Arial, sans-serif;
+}
+
+.language-toggle {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-toggle::after {
+  content: "▼";
+  font-size: 12px;
+  color: white;
+}
+
+.language-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  z-index: 1;
+}
+
+.language-options div {
+  padding: 10px;
+  cursor: pointer;
+}
+.language-options div:hover {
+  background-color: #f1f1f1;
+}
+
+.language-selector.active .language-options {
+  display: block;
+}
+
 #gamePoints {
   display: none;
   color: #ffffff; 
@@ -49,6 +105,7 @@ body {
   font-size: 24px; 
   position: relative;
   top: -200px;
+  /* top: -280px; Quando language tiver habilitado*/
   left: 350px;
   max-width: 300px;
   max-height: 20px;
@@ -273,9 +330,8 @@ body {
   width: 320px;
   height: 60px;
   cursor: pointer;
-
-  max-width: 300px;
   margin-top: 40px;
+  /* margin-top: -100px; Quando language tiver habilitado */
   position: relative;
   left: 565px;
 }
@@ -417,6 +473,7 @@ body {
   height: 50px;
 
   top: -100px;
+  /* top: -160px; Quando language tiver habilitado */
   position: relative;
   left: 595px;
   overflow: hidden;
@@ -450,6 +507,7 @@ body {
   justify-content: space-around;
   align-items: center;
   top: -70px;
+  /* top: -150px; Quando language tiver habilitado */
   padding: 10px;
   color: #ffffff; 
   font-family: 'Arial', sans-serif; 
@@ -584,11 +642,12 @@ body {
   position: fixed;
   max-height: 650px;
   max-width: 700px;
-  background-color: white;
+  color: white;
+  background-color: #000000;
+  border: 5px solid #286f2a;
   transform: translate(60%, 5%); 
   z-index: 1001; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 5px solid #008e18;
   padding: 2px;
 }
 
@@ -618,8 +677,8 @@ body {
 .boxContainer {
   display: none;
   justify-content: center;
-  
   top: -120px;
+  /* top: -170px; Quando language tiver habilitado*/
   position: relative;
   right: 110px;
 }
@@ -671,6 +730,7 @@ body {
   max-width: 400px;
   width: 100%;
   top: -105px;
+  /* top: -160px; Quando language tiver habilitado*/
   position: relative;
   left: 520px;
   transition: all 0.3s ease-in-out;
@@ -696,6 +756,19 @@ body {
   color: #333;
 }
 
+.info-button {
+  max-width: 70px;
+  max-height: 70px;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  border: none;
+  cursor: pointer;
+
+  transition: 0.3s ease, transform 0.3s ease;
+}
+
+
 .info-button img {
   max-width: 70px;
   max-height: 70px;
@@ -705,8 +778,7 @@ body {
   border: none;
   cursor: pointer;
 
-  transition: transform 0.6s ease, color 0.6s ease;
-  transform-origin: center;
+  transition: 0.3s ease, transform 0.3s ease;
 }
 
 .info-button:hover {
@@ -718,11 +790,12 @@ body {
   position: fixed;
   max-height: 650px;
   max-width: 700px;
-  background-color: white;
+  color: white;
+  background-color: #000000;
+  border: 5px solid #286f2a;
   transform: translate(60%, 5%); 
   z-index: 1001; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 5px solid #008e18;
   padding: 2px;
 }
 
@@ -814,21 +887,6 @@ body {
     overflow: hidden;
     background: url('../css/Assets/searchButton.png') no-repeat center center;
     background-size: cover;
-  }
-
-  .hintBox {
-    display: none;
-    width: 260px;
-    height: 120px;
-    background-color: #41e932;
-    border: 3px solid #286f2a;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-    right: 25px;
-    top: -80px;
-    justify-content: space-around;
-    align-items: flex-end;
   }
 
   .congrats-block {
