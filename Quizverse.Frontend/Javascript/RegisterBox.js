@@ -17,6 +17,13 @@ function togglePassword() {
   }
 }
 
+document.getElementById("username").addEventListener("input", function () {
+  this.value = this.value.replace(/\s/g, "");
+});
+document.getElementById("password").addEventListener("input", function () {
+  this.value = this.value.replace(/\s/g, "");
+});
+
 document.getElementById('register-form').addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -25,7 +32,11 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const confirmPassword = document.getElementById('confirm-password').value;
   const loadingElement = document.getElementById('loading');
   const buttonText = document.getElementById('button-text');
-    
+
+  if (/\s/.test(username) || /\s/.test(password)) {
+      alert("O nome de usuário e a senha não devem conter espaços em branco.");
+      return;
+  }
   if (password !== confirmPassword) {
       alert("Both passwords need to be the same.");
       return;

@@ -2,6 +2,7 @@ import { getUserImage } from './UserImage.js';
 import { setProfileImage } from './LoginDropdown.js';
 import { calculateTriesGamePoints, getUserPoints } from './UserPoints.js';
 import { calculateAllTimeGamePoints } from './UserPoints.js';
+import { getBestPlayers } from './BestPlayers.js';
 
 var availableCharacters = [];
 var correctCharacter;
@@ -461,27 +462,27 @@ function adjustFontSize(element, text) {
     }
 }
 
-const players = [
-    { nick: "playerOne", points: 1200 },
-            { nick: "playerTwo", points: 1300 },
-            { nick: "playerThree", points: 1400 },
-            { nick: "playerFour", points: 1500 },
-            { nick: "playerFive", points: 1600 },
-            { nick: "playerSix", points: 1700 },
-            { nick: "playerSeven", points: 1800 },
-            { nick: "playerEight", points: 1900 },
-            { nick: "playerSeven", points: 1800 },
-            { nick: "playerEight", points: 1900 }
-];
+async function loadPlayers() {
+    const bestPlayers = await getBestPlayers();
+    const players = [];
 
-// Função para gerar a tabela dinamicamente
-function generateTable() {
+    for (let i = 0; i < 10; i++) {
+        if (bestPlayers[i]) {
+            players.push({
+                nick: bestPlayers[i].name,
+                points: bestPlayers[i].userpoints
+            });
+        }
+    }
+
+    return players;
+}
+
+function generateTable(players) {
     const tableBody = document.querySelector('#playersTable tbody');
     
-    // Ordenar jogadores pela pontuação (opcional se já estiver ordenado)
-    players.sort((a, b) => a.points - b.points);
+    players.sort((a, b) => b.points - a.points);
 
-    // Adicionar cada jogador na tabela
     players.forEach((player, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -493,10 +494,10 @@ function generateTable() {
     });
 }
 
-//Lógica para a funcionalidade da tabela
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const tableTitle = document.getElementById('tableTitle');
     let tableGenerated = false;
+    const players = await loadPlayers();
     
     if (tableTitle) {
         tableTitle.addEventListener('click', function () {
@@ -504,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const icon = document.getElementById('expandIcon');
 
             if (!tableGenerated) {
-                generateTable();
+                generateTable(players);
                 tableGenerated = true;  
             }
 
