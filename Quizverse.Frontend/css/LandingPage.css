@@ -184,7 +184,7 @@ body {
 #playersTable {
   display: block;
   position: absolute;
-  right: 52px;
+  right: 25px;
   top: 250px;
   width: 30%;
   height: 3px;
@@ -657,6 +657,9 @@ body {
 
 .green {
   color: green;
+}
+.orange {
+  color: orange;
 }
 .red {
   color: red;

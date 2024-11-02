@@ -6,7 +6,7 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserImageController : Controller
+    public class UserImageController : ControllerBase
     {
         [HttpGet]
         public IActionResult UserImage([FromQuery] string userName)

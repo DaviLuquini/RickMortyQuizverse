@@ -48,6 +48,20 @@ namespace QuizVerse.Platform.Infrastructure.Database
             return userPoints;
         }
 
+        public IEnumerable<User> GetAllUserPoints()
+        {
+            using var conn = new DbConnection();
+
+            EnsureTableExists(conn.Connection);
+
+            string query = @"SELECT name, userpoints
+                     FROM public.""Users""";
+
+            var userPointsList = conn.Connection.Query<User>(query);
+
+            return userPointsList;
+        }
+
         public int GetUserImage(int userId)
         {
             using var conn = new DbConnection();

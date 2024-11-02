@@ -6,8 +6,15 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserPointsController : Controller
+    public class UserPointsController : ControllerBase
     {
+        private readonly UserRepository userRepository;
+
+        public UserPointsController(UserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
+
         [HttpGet]
         public IActionResult UserPoints([FromQuery] string userName)
         {
@@ -16,6 +23,14 @@ namespace QuizVerse.Api.Controllers
             var userPoints = GetUserPoints(userId);
 
             return Ok(new { Points = userPoints });
+        }
+
+        [HttpGet("all")]
+        public IActionResult AllUserPoints()
+        {
+            var userPointsList = GetAllUserPoints();
+
+            return Ok(new {userPointsList});
         }
 
         [HttpPut]
@@ -30,8 +45,7 @@ namespace QuizVerse.Api.Controllers
 
         private int GetUserId(string userName)
         {
-            var repository = new UserRepository();
-            var users = repository.GetUsers();
+            var users = userRepository.GetUsers();
 
             foreach (var user in users)
             {
@@ -46,14 +60,17 @@ namespace QuizVerse.Api.Controllers
 
         private int GetUserPoints(int userId)
         {
-            var repository = new UserRepository();
-            return repository.GetUserPoints(userId);
+            return userRepository.GetUserPoints(userId);
+        }
+
+        private IEnumerable<User> GetAllUserPoints()
+        {
+            return userRepository.GetAllUserPoints();
         }
 
         private void UpdateUserPoints(int userId, int newUserPoints)
         {
-            var repository = new UserRepository();
-            repository.UpdateUserPoints(userId, newUserPoints);
+            userRepository.UpdateUserPoints(userId, newUserPoints);
         }
     }
 }
