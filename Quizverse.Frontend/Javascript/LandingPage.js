@@ -130,22 +130,19 @@ async function getAllCharactersApi() {
 }
 
 
+function GetMostFamousCharacters(characters, count) {
+    const sortedCharacters = characters.sort((a, b) => b.episodeCount - a.episodeCount);
+    
+    return sortedCharacters.slice(0, count);
+}
+
+
+
     function getCorrectCharacter() {
         const randomIndex = Math.floor(Math.random() * availableCharacters.length);
         correctCharacter = availableCharacters[randomIndex];
       
         return correctCharacter;
-    }
-
-    function getRandomCharacters(characters, count) {
-        const randomCharacters = [];
-        const shuffledCharacters = characters.sort(() => Math.random() - 0.5); 
-    
-        for (let i = 0; i < count; i++) {
-            randomCharacters.push(shuffledCharacters[i]); 
-        }
-    
-        return randomCharacters;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -183,26 +180,16 @@ async function getAllCharactersApi() {
         const characters = await getAllCharactersApi();
 
         availableCharacters.length = 0; 
-        const principalCharacters = [];
-    
-        for (const character of characters) {
-            if ([1, 2, 3, 4, 5].includes(character.id)) {
-                principalCharacters.push(character);
-            }
-        }
     
         if (gameMode === 'easy') {
-            var randomCharacters = getRandomCharacters(characters, 15); 
-            availableCharacters.push(...principalCharacters);
-            availableCharacters.push(...randomCharacters); 
+            var newCharacteres = GetMostFamousCharacters(characters, 20); 
+            availableCharacters.push(...newCharacteres); 
         } else if (gameMode === 'medium') {
-            var randomCharacters = getRandomCharacters(characters, 45); 
-            availableCharacters.push(...principalCharacters);
-            availableCharacters.push(...randomCharacters); 
+            var newCharacteres = GetMostFamousCharacters(characters, 50); 
+            availableCharacters.push(...newCharacteres); 
         } else if (gameMode === 'hard') {
-            var randomCharacters = getRandomCharacters(characters, 95); 
-            availableCharacters.push(...principalCharacters);
-            availableCharacters.push(...randomCharacters); 
+            var newCharacteres = GetMostFamousCharacters(characters, 100); 
+            availableCharacters.push(...newCharacteres); 
         } else if (gameMode === 'impossible') {
             availableCharacters.push(...characters); 
         } else {
@@ -313,6 +300,10 @@ async function getAllCharactersApi() {
 });
 
     buttonBack.addEventListener('click', function () {
+
+        if(handleHintBallAction1Called || handleHintBallAction2Called || tries >= 6) {
+            location.reload();
+        }
         buttonSearch.style.display = 'none';
         buttonBack.style.display = 'none';
         buttonHowToPlay.style.display = 'none';
@@ -332,10 +323,6 @@ async function getAllCharactersApi() {
         remainingTries = 0;
         updateFirstLetterTriesText(firstLetterTries, tries);
         updateImageClueTriesText(imageClueTries, tries);
-
-        if(handleHintBallAction1Called || handleHintBallAction2Called) {
-            location.reload();
-        }
     });
 
     buttonHowToPlay.addEventListener('click', function() {
@@ -472,8 +459,8 @@ async function loadPlayers() {
                 nick: bestPlayers[i].name,
                 points: bestPlayers[i].userpoints
             });
-        }
-    }
+        } 
+}
 
     return players;
 }
