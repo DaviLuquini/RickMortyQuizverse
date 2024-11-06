@@ -4,108 +4,94 @@ using System.Data;
 
 namespace QuizVerse.Platform.Infrastructure.Database
 {
-    public class UserRepository
+    public class UserRepository(DbConnection dbConnection)
     {
-        public bool AddUser(User user)
-        {
-            using var conn = new DbConnection();
+        private readonly DbConnection dbConnection = dbConnection;
 
-            EnsureTableExists(conn.Connection);
+        public void AddUser(User user)
+        {
+            EnsureTableExists(dbConnection.Connection);
 
             string query = @"INSERT INTO public.""Users""(name, password)
                          VALUES (@name, @password);";
 
-            var result = conn.Connection.Execute(sql: query, param: user);
-
-            return result == 1;
+            dbConnection.Connection.Execute(sql: query, param: user);
         }
 
         public List<User> GetUsers()
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string query = @"SELECT * FROM public.""Users"";";
 
-            var users = conn.Connection.Query<User>(sql: query);
+            var users = dbConnection.Connection.Query<User>(sql: query);
 
             return users.ToList();
         }
 
-        public int GetUserPoints(int userId)
+        public int GetUserPoints(string username)
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string query = @"SELECT userpoints
                      FROM public.""Users""
-                     WHERE id = @UserId;";
+                     WHERE name = @Username;";
 
-            var userPoints = conn.Connection.QueryFirstOrDefault<int>(sql: query,param: new { UserId = userId });
+            var userPoints = dbConnection.Connection.QueryFirstOrDefault<int>(sql: query,param: new { Username = username });
 
             return userPoints;
         }
 
         public IEnumerable<User> GetAllUserPoints()
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string query = @"SELECT name, userpoints
                      FROM public.""Users""";
 
-            var userPointsList = conn.Connection.Query<User>(query);
+            var userPointsList = dbConnection.Connection.Query<User>(query);
 
             return userPointsList;
         }
 
-        public int GetUserImage(int userId)
+        public int GetUserImage(string username)
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string query = @"SELECT userimage
                      FROM public.""Users""
-                     WHERE id = @UserId;";
+                     WHERE name = @Username;";
 
-            int userImage = conn.Connection.QueryFirstOrDefault<int>(sql: query, param: new { UserId = userId });
+            int userImage = dbConnection.Connection.QueryFirstOrDefault<int>(sql: query, param: new { Username = username });
 
             return userImage;
         }
 
-        public void UpdateUserPoints(int userId , int newUserPoints)
+        public void UpdateUserPoints(string username, int newUserPoints)
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string queryUpdate = @"UPDATE public.""Users""
                            SET userpoints = @newUserPoints
-                           WHERE id = @UserId;";
+                           WHERE name = @Username;";
 
 
-            conn.Connection.Execute(
+            dbConnection.Connection.Execute(
                 sql: queryUpdate,
-                param: new { newUserPoints, UserId = userId });
+                param: new { newUserPoints, Username = username });
         }
 
-        public void UpdateUserImage(int userId, int newUserImage)
+        public void UpdateUserImage(string username, int newUserImage)
         {
-            using var conn = new DbConnection();
-
-            EnsureTableExists(conn.Connection);
+            EnsureTableExists(dbConnection.Connection);
 
             string queryUpdate = @"UPDATE public.""Users""
                            SET userimage = @newUserImage
-                           WHERE id = @UserId;";
+                           WHERE name = @Username;";
 
-            conn.Connection.Execute(
+            dbConnection.Connection.Execute(
                 sql: queryUpdate,
-                param: new { newUserImage, UserId = userId });
+                param: new { newUserImage, Username = username });
         }
 
 

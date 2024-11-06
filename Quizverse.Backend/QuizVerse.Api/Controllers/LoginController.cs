@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using QuizVerse.Platform.Application;
+using QuizVerse.Platform.Application.Requests;
 using QuizVerse.Platform.Infrastructure.Database;
 using QuizverseBack.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,14 +13,16 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController(IConfiguration configuration) : ControllerBase
+    public class LoginController(IConfiguration configuration, IUserAppService userAppService) : ControllerBase
     {
         private readonly IConfiguration _configuration = configuration;
 
+        private readonly IUserAppService userAppService = userAppService;
+
         [HttpPost]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] UserLoginRequestDTO request)
         {
-            var users = GetUsers();
+            var users = userAppService.GetUsers();
 
             string requestUsernameLower = request.Username.ToLower();
 
@@ -84,18 +88,5 @@ namespace QuizVerse.Api.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-
-        private List<User> GetUsers()
-        {
-            var repository = new UserRepository();
-            return repository.GetUsers();
-        }
-    }
-
-    public class LoginRequest
-    {
-        public required string Username { get; set; }
-        public required string Password { get; set; }
     }
 }
