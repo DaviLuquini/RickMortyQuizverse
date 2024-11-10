@@ -57,30 +57,25 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const result = await response.json();
 
   if (response.ok) {
-      alert('Register successful');
-      window.location.href = '../Pages/LoginBox.html';
-  } else if(result.code === 'USERNAME_TOO_LONG') {
-    alert('Register failed! UserName Too Long.');
+    alert('Register successful');
+    window.location.href = '../Pages/LoginBox.html';
+} else {
+
+    if (result.code === 'USERNAME_TOO_LONG') {
+        alert('Register failed! UserName Too Long.');
+    } else if (result.code === 'PASSWORD_TOO_LONG') {
+        alert('Register failed! Password Too Long.');
+    } else if (result.code === 'USERS_LIMIT_REACHED') {
+        alert('Register failed! Users limit reached.');
+    } else if (result.code === 'NAME_ALREADY_USED') {
+        alert('Register failed! Name Already Used.');
+    } else {
+        alert('Register failed! An unknown error occurred.'); 
+    }
+    
     loadingElement.style.display = 'none';
     buttonText.classList.remove('hide-text');
-  } else if(result.code === 'PASSWORD_TOO_LONG') {
-    alert('Register failed! Password Too Long.');
-    loadingElement.style.display = 'none';
-    buttonText.classList.remove('hide-text');
-  } else if(result.code === 'USERS_LIMIT_REACHED') {
-    alert('Register failed! Users limit reached.');
-    loadingElement.style.display = 'none';
-    buttonText.classList.remove('hide-text');
-  } else if(result.code === 'NAME_ALREADY_USED') {
-    alert('Register failed! Name Already Used.');
-    loadingElement.style.display = 'none';
-    buttonText.classList.remove('hide-text');
-  }
-   else {
-      alert('Register failed! Server Offline.');
-      loadingElement.style.display = 'none';
-      buttonText.classList.remove('hide-text');
-  }
+}
 
     } catch (error) {
         alert('Server offline. Not possible to connect.');

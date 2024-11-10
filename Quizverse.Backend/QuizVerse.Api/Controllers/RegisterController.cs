@@ -1,73 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuizVerse.Platform.Application;
+using QuizVerse.Platform.Application.Exceptions;
 using QuizVerse.Platform.Infrastructure.Database;
 using QuizverseBack.Models;
+using QuizverseBack.Requests;
 
 namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RegisterController : ControllerBase
+    public class RegisterController(IUserAppService userAppservice) : ControllerBase
     {
-        public List<User> Users { get; set; } = [];
+        private readonly IUserAppService userAppService = userAppservice;
 
         [HttpPost]
-        public IActionResult Register([FromBody] RegisterRequest request)
+        public IActionResult Register([FromBody] UserRegisterRequestDto request)
         {
-            var repository = new UserRepository();
-            var users = GetUsers();
-
-            string requestUsernameLower = request.Username.ToLower();
-
-            bool userExists = users.Any(user => user.Name == requestUsernameLower);
-
-            if (userExists)
+            try
             {
-                return BadRequest(new {
-                    code = "NAME_ALREADY_USED",
-                    message = "Register failed! Name already used."
-                });
+                var newUser = userAppService.AddUser(request);
+
+                return Ok(new { message = "Register successful!", user = newUser });
             }
 
-            if (requestUsernameLower.Length > 20)
+            catch (UserRegisterException ex)
             {
-                return BadRequest(new {
-                    code = "USERNAME_TOO_LONG",
-                    message = "Register failed! UserName reached Max characters (12)"
-                });
+                return BadRequest(new { code = ex.Code, message = ex.Message });
             }
 
-            if (request.Password.Length > 30)
+            catch (Exception ex)
             {
-                return Unauthorized(new {
-                    code = "PASSWORD_TOO_LONG",
-                    message = "Register failed! Password reached Max characters (30)"
-                });
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
             }
-
-            if (users.Count >= 1000)
-            {
-                return Unauthorized(new {
-                    code = "USERS_LIMIT_REACHED",
-                    message = "Maximum number of users reached. Cannot add more users. (1000)"
-                });
-            }
-
-            var newUser = new User(0, requestUsernameLower, request.Password);
-            repository.AddUser(newUser);
-
-            return Ok(new { message = "Register successful!", user = newUser });
-        }
-
-        private List<User> GetUsers()
-        {
-            var repository = new UserRepository();
-            return repository.GetUsers();
         }
     }
 
-    public class RegisterRequest
-    {
-        public required string Username { get; set; }
-        public required string Password { get; set; }
-    }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuizVerse.Platform.Application;
 using QuizVerse.Platform.Infrastructure.Database;
 using QuizverseBack.Models;
 
@@ -6,21 +7,14 @@ namespace QuizVerse.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserPointsController : ControllerBase
+    public class UserPointsController(IUserAppService userAppService) : ControllerBase
     {
-        private readonly UserRepository userRepository;
-
-        public UserPointsController(UserRepository userRepository)
-        {
-            this.userRepository = userRepository;
-        }
+        private readonly IUserAppService userAppService = userAppService;
 
         [HttpGet]
-        public IActionResult UserPoints([FromQuery] string userName)
+        public IActionResult UserPoints([FromQuery] string username)
         {
-            var userId = GetUserId(userName);
-
-            var userPoints = GetUserPoints(userId);
+            var userPoints = userAppService.GetUserPoints(username);
 
             return Ok(new { Points = userPoints });
         }
@@ -28,49 +22,17 @@ namespace QuizVerse.Api.Controllers
         [HttpGet("all")]
         public IActionResult AllUserPoints()
         {
-            var userPointsList = GetAllUserPoints();
+            var userPointsList = userAppService.GetAllUserPoints();
 
-            return Ok(new {userPointsList});
+            return Ok(new { userPointsList });
         }
 
         [HttpPut]
-        public IActionResult UpdateUserPoints([FromQuery] string userName, int newUserPoints)
+        public IActionResult UpdateUserPoints([FromQuery] string username, int newUserPoints)
         {
-            var userId = GetUserId(userName);
-
-           UpdateUserPoints(userId, newUserPoints);
+            userAppService.UpdateUserPoints(username, newUserPoints);
 
             return Ok();
-        }
-
-        private int GetUserId(string userName)
-        {
-            var users = userRepository.GetUsers();
-
-            foreach (var user in users)
-            {
-                if (userName == user.Name)
-                {
-                    return user.Id;
-                }
-            }
-
-            throw new Exception("User not found");
-        }
-
-        private int GetUserPoints(int userId)
-        {
-            return userRepository.GetUserPoints(userId);
-        }
-
-        private IEnumerable<User> GetAllUserPoints()
-        {
-            return userRepository.GetAllUserPoints();
-        }
-
-        private void UpdateUserPoints(int userId, int newUserPoints)
-        {
-            userRepository.UpdateUserPoints(userId, newUserPoints);
         }
     }
 }

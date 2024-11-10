@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using QuizVerse.Platform.Application;
 using QuizVerse.Platform.Infrastructure.Database;
+using QuizverseBack.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +44,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserFactory>();
+builder.Services.AddScoped<DbConnection>();
+builder.Services.AddScoped<IUserAppService, UserAppService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -24,6 +24,9 @@ const hintBall2 = document.querySelector('.hint-ball-2');
 const languageSelector = document.querySelector('.language-selector');
 const languageToggle = document.querySelector('.language-toggle');
 const languageOptions = document.querySelectorAll('.language-options div');
+var loginWarning = document.getElementById('login-warning');
+var tableTitlePlayers = document.getElementById('tableTitle');
+var playersTable = document.getElementById('playersTable');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
@@ -35,7 +38,8 @@ async function getSessionInfo() {
     const result = await response.json();
 
     if (response.ok && result.message) {
-        var loginWarning = document.getElementById('login-warning');
+        tableTitlePlayers.style.marginTop = '-50px';
+        playersTable.style.marginTop = '-44px';
         loginWarning.style.display = 'none';
 
         const usernameMatch = result.message.match(/Logged in as (\w+)/);
