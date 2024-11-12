@@ -89,6 +89,6 @@ window.onload = function () {
     const buttonBack = document.querySelector('.button-goBack');
 
     buttonBack.addEventListener('click', function () {
-        window.location.href = '../Pages/index.html';
+        window.location.href ="index.html";
     });
 }
