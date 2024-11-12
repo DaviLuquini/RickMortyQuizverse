@@ -48,7 +48,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
         try {
             allTimeGamePoints = await getUserPoints(username); 
             localStorage.setItem('allTimeGamePoints', allTimeGamePoints);
-            window.location.href = `../Pages/LandingPage.html`; 
+            window.location.href = `../Pages/index.html`; 
         } catch (error) {
             console.error('Error fetching user points:', error);
             alert('Could not fetch user points. Please try again later.');
@@ -84,6 +84,6 @@ window.onload = function () {
     const buttonBack = document.querySelector('.button-goBack');
 
     buttonBack.addEventListener('click', function () {
-        window.location.href = '../Pages/LandingPage.html';
+        window.location.href = '../Pages/index.html';
     });
 }
