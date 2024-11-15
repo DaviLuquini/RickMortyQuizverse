@@ -25,10 +25,10 @@ body {
 }
 
 .logo {
-  max-width: 300px;
+  max-width: 150px;
   margin-top: 270px;
-  position: relative;
-  right: 290px;
+  position: absolute;
+  left: 665px;
 }
 
 .button-goBack {
