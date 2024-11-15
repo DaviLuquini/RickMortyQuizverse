@@ -19,13 +19,13 @@ body {
 .title {
   max-width: 550px;
   margin-top: 30px;
-  position: absolute;
-  left: 490px;
+  position: relative;
+  left: 0px;
 }
 
 .logo {
   max-width: 150px;
-  margin-top: 270px;
+  margin-top: 250px;
   position: absolute;
   left: 665px;
 }

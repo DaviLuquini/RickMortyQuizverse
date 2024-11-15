@@ -20,21 +20,21 @@ body {
   max-width: 550px;
   margin-top: 30px;
   position: relative;
-  left: 150px;
+  left: 0px;
 }
 
 .logo {
-  max-width: 300px;
-  margin-top: 270px;
-  position: relative;
-  right: 290px;
+  max-width: 150px;
+  margin-top: 250px;
+  position: absolute;
+  left: 665px;
 }
 
 .button-goBack {
   width: 100px;
   height: 40px;
   position: absolute;
-  top: 250px;
+  top: 270px;
   right: 1100px;
   background-color: #28a745; 
   color: white; 
@@ -65,7 +65,7 @@ body {
   border-radius: 5px;
   background-color: #f9f9f9;
   margin: 0 auto;
-  margin-top: 140px;
+  margin-top: 160px;
 }
 .form-row {
   display: flex;
