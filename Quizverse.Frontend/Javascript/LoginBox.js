@@ -30,7 +30,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
       loadingElement.style.display = 'block';
       buttonText.classList.add('hide-text');
 
-      const response = await fetch('https://localhost:7295/api/Login', {
+      const response = await fetch('http://localhost:8080/api/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

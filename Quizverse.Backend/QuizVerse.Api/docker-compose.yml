@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres      
+      POSTGRES_PASSWORD: postgres  
+      POSTGRES_DB: quizverse_users        
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+
+  quizverse-api:
+    build:
+       context: ../ 
+       dockerfile: QuizVerse.Api/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"  
+    depends_on:
+      - db  
+    environment:
+     - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=quizverse_users;User Id=postgres;Password=postgres
+
+volumes:
+  postgres_data:  
