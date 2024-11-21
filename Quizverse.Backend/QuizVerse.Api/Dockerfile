@@ -6,8 +6,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base 
 
 WORKDIR /app
-EXPOSE 8080
 EXPOSE 8081
+
+# Instalação do Certbot para gerenciamento de certificados
+RUN apt-get update && apt-get install -y certbot
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build 
 ARG BUILD_CONFIGURATION=Release
@@ -27,4 +29,4 @@ RUN dotnet publish "./QuizVerse.Api.csproj" -c %BUILD_CONFIGURATION% -o /app/pub
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "QuizVerse.Api.dll", "--urls", "https://0.0.0.0:8081"] 
+ENTRYPOINT ["dotnet", "QuizVerse.Api.dll"]

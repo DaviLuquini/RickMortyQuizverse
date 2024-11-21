@@ -30,7 +30,7 @@ var playersTable = document.getElementById('playersTable');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
-    const response = await fetch('https://localhost:7295/api/Login/check-session', {
+    const response = await fetch('http://localhost:8081/api/Login/check-session', {
         headers: {
             'Authorization': `Bearer ${token}`,
         },

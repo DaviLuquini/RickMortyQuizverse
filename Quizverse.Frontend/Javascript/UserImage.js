@@ -1,6 +1,6 @@
 export async function getUserImage(username) {
     try {
-        const response = await fetch(`https://localhost:7295/api/UserImage?userName=${encodeURIComponent(username)}`, {
+        const response = await fetch(`http://localhost:8081/api/UserImage?userName=${encodeURIComponent(username)}`, {
             method: 'GET',
             headers: {
                 'Accept': '*/*',
@@ -28,7 +28,7 @@ export async function updateUserImage(userImage) {
     const username = userText.split(':')[1].trim();
 
     try {
-    const response = await fetch(`https://localhost:7295/api/UserImage?userName=${encodeURIComponent(username)}&newUserImage=${userImage}`, {
+    const response = await fetch(`http://localhost:8081/api/UserImage?userName=${encodeURIComponent(username)}&newUserImage=${userImage}`, {
         method: 'PUT',
         headers: {
             'Accept': '*/*',

@@ -27,7 +27,7 @@ export async function calculateAllTimeGamePoints(userPoints) {
     allTimeGamePoints += userPoints;
 
     try {
-    const response = await fetch(`https://localhost:7295/api/UserPoints?userName=${encodeURIComponent(username)}&newUserPoints=${allTimeGamePoints}`, {
+    const response = await fetch(`http://localhost:8081/api/UserPoints?userName=${encodeURIComponent(username)}&newUserPoints=${allTimeGamePoints}`, {
         method: 'PUT',
         headers: {
             'Accept': '*/*',
@@ -49,7 +49,7 @@ export async function calculateAllTimeGamePoints(userPoints) {
   
   export async function getUserPoints(userName) {
     try {
-        const response = await fetch(`https://localhost:7295/api/UserPoints?userName=${encodeURIComponent(userName)}`, {
+        const response = await fetch(`http://localhost:8081/api/UserPoints?userName=${encodeURIComponent(userName)}`, {
             method: 'GET',
             headers: {
                 'Accept': '*/*',
