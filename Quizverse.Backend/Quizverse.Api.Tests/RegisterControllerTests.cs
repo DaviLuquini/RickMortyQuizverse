@@ -1,9 +1,7 @@
-using NUnit.Framework;
 using Microsoft.AspNetCore.Mvc;
 using QuizVerse.Api.Controllers;
-using QuizVerse.Platform.Infrastructure.Database;
-using System.Collections.Generic;
-using QuizverseBack.Models;
+using QuizVerse.Platform.Application;
+using QuizverseBack.Requests;
 
 namespace Quizverse.Api.Tests
 {
@@ -12,16 +10,18 @@ namespace Quizverse.Api.Tests
     {
         private RegisterController _controller;
 
+        private IUserAppService _userAppService;
+
         [SetUp]
         public void Setup()
         {
-            _controller = new RegisterController();
+            _controller = new RegisterController(_userAppService);
         }
 
         [Test]
         public void Register_Should_Return_NameAlreadyExists_When_Name_Already_Exists()
         {
-            RegisterRequest request = new() { Username = "test", Password = "456" };
+            UserRegisterRequestDto request = new() { Username = "test", Password = "456" };
 
             var result = _controller.Register(request) as UnauthorizedObjectResult;
 

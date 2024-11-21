@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{A5CF1BD0-385B-45D7-816A-8E174A6047B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{AD2B13B5-B3F1-4C3B-A1FF-F45D81D27FD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{45EBFBFB-7401-4383-A4A2-2CFC12109419}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizVerse.Api", "QuizVerse.Api\QuizVerse.Api.csproj", "{5DB29A29-61E6-4711-BD4C-508B7B258217}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quizverse.Api.Tests", "Quizverse.Api.Tests\Quizverse.Api.Tests.csproj", "{81C4F033-1A70-4DF9-8523-8480753F54FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizVerse.Platform", "QuizVerse.Platform\QuizVerse.Platform.csproj", "{086775C4-3712-433D-B33B-A72FC0F4217F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizverseBack.Domain", "QuizverseBack.Domain\QuizverseBack.Domain.csproj", "{83F85A50-9D45-4D68-B76D-1F3C3AF55652}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DB29A29-61E6-4711-BD4C-508B7B258217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB29A29-61E6-4711-BD4C-508B7B258217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB29A29-61E6-4711-BD4C-508B7B258217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB29A29-61E6-4711-BD4C-508B7B258217}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C4F033-1A70-4DF9-8523-8480753F54FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C4F033-1A70-4DF9-8523-8480753F54FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C4F033-1A70-4DF9-8523-8480753F54FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C4F033-1A70-4DF9-8523-8480753F54FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086775C4-3712-433D-B33B-A72FC0F4217F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086775C4-3712-433D-B33B-A72FC0F4217F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086775C4-3712-433D-B33B-A72FC0F4217F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086775C4-3712-433D-B33B-A72FC0F4217F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F85A50-9D45-4D68-B76D-1F3C3AF55652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F85A50-9D45-4D68-B76D-1F3C3AF55652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F85A50-9D45-4D68-B76D-1F3C3AF55652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F85A50-9D45-4D68-B76D-1F3C3AF55652}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5DB29A29-61E6-4711-BD4C-508B7B258217} = {AD2B13B5-B3F1-4C3B-A1FF-F45D81D27FD3}
+		{81C4F033-1A70-4DF9-8523-8480753F54FD} = {AD2B13B5-B3F1-4C3B-A1FF-F45D81D27FD3}
+		{086775C4-3712-433D-B33B-A72FC0F4217F} = {45EBFBFB-7401-4383-A4A2-2CFC12109419}
+		{83F85A50-9D45-4D68-B76D-1F3C3AF55652} = {A5CF1BD0-385B-45D7-816A-8E174A6047B4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F328D91F-5103-42BE-B687-0F4DEFBBA923}
+	EndGlobalSection
+EndGlobal

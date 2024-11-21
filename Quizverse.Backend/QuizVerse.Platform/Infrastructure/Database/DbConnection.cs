@@ -10,7 +10,8 @@ namespace QuizVerse.Platform.Infrastructure.Database
 
         public DbConnection()
         {
-            Connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=quizverse_users;User Id=postgres;Password=postgres");
+            //localhost: Connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=quizverse_users;User Id=postgres;Password=postgres");
+            Connection = new NpgsqlConnection("Server=db;Port=5432;Database=quizverse_users;User Id=postgres;Password=postgres");
             Connection.Open();
         }
 

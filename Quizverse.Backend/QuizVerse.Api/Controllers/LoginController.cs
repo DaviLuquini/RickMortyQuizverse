@@ -20,7 +20,7 @@ namespace QuizVerse.Api.Controllers
         private readonly IUserAppService userAppService = userAppService;
 
         [HttpPost]
-        public IActionResult Login([FromBody] UserLoginRequestDTO request)
+        public IActionResult Login([FromBody] UserLoginRequestDto request)
         {
             var users = userAppService.GetUsers();
 

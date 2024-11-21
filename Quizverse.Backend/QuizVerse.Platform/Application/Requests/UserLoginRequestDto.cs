@@ -1,7 +1,7 @@
 ﻿
 namespace QuizVerse.Platform.Application.Requests
 {
-    public class UserLoginRequestDTO()
+    public class UserLoginRequestDto()
     {
         public required string Username { get; set; }
 

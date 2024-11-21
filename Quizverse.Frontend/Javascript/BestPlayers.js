@@ -1,6 +1,6 @@
 export async function getBestPlayers() {
     try {
-        const response = await fetch(`https://localhost:7295/api/UserPoints/all`, {
+        const response = await fetch(`http://localhost:8081/api/UserPoints/all`, {
             method: 'GET',
             headers: {
                 'Accept': '*/*',

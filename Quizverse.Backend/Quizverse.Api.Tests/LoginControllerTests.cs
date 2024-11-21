@@ -1,5 +1,6 @@
 ﻿using QuizVerse.Api.Controllers;
-using QuizverseBack.Models;
+using QuizVerse.Platform.Application.Requests;
+using QuizverseBack.Requests;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Quizverse.Api.Tests
             int randomNumber = random.Next();
 
             // Register User
-            var registerRequest = new RegisterRequest { Username = "validUser" + randomNumber, Password = "validPassword" };
+            var registerRequest = new UserRegisterRequestDto { Username = "validUser" + randomNumber, Password = "validPassword" };
             var jsonRegisterRequest = JsonSerializer.Serialize(registerRequest);
             var registerContent = new StringContent(jsonRegisterRequest, Encoding.UTF8, "application/json");
 
@@ -31,7 +32,7 @@ namespace Quizverse.Api.Tests
             Assert.That(registerResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
             // Log In
-            var loginRequest = new LoginRequest { Username = "validUser" + randomNumber, Password = "validPassword" };
+            var loginRequest = new UserLoginRequestDto { Username = "validUser" + randomNumber, Password = "validPassword" };
             var jsonLoginRequest = JsonSerializer.Serialize(loginRequest);
             var loginContent = new StringContent(jsonLoginRequest, Encoding.UTF8, "application/json");
 
