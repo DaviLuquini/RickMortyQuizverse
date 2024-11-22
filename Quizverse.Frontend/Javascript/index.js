@@ -65,23 +65,23 @@ async function getSessionInfo() {
 getSessionInfo();
 
 //Language Selector
-languageToggle.addEventListener('click', () => {
-    languageSelector.classList.toggle('active');
-});
+// languageToggle.addEventListener('click', () => {
+//     languageSelector.classList.toggle('active');
+// });
 
-languageOptions.forEach(option => {
-    option.addEventListener('click', () => {
-        const selectedLanguage = option.innerText;
-        languageToggle.innerText = selectedLanguage;
-        languageSelector.classList.remove('active');
-    });
-});
+// languageOptions.forEach(option => {
+//     option.addEventListener('click', () => {
+//         const selectedLanguage = option.innerText;
+//         languageToggle.innerText = selectedLanguage;
+//         languageSelector.classList.remove('active');
+//     });
+// });
 
-document.addEventListener('click', (event) => {
-    if (!languageSelector.contains(event.target)) {
-        languageSelector.classList.remove('active');
-    }
-});
+// document.addEventListener('click', (event) => {
+//     if (!languageSelector.contains(event.target)) {
+//         languageSelector.classList.remove('active');
+//     }
+// });
 
 async function getAllCharactersApi() {
     const allCharacters = [];

@@ -43,7 +43,7 @@ body {
 }
 
 /* Desabilitado por enquanto */
- .language-selector {
+ /* .language-selector {
   display: none;
   max-width: 200px;
   margin: 50px auto;
@@ -96,7 +96,7 @@ body {
 
 .language-selector.active .language-options {
   display: block;
-}
+} */
 
 #gamePoints {
   display: none;
@@ -813,100 +813,326 @@ body {
   overflow: hidden; 
 }
 
-/* Responsivity */
+/* Responsivity for PC */
 @media (min-width: 1600px) {
-  body {
-    padding: 0;
-    margin: 0;
-    min-height: 100vh;
-  }
 
   .containerLogo {
-    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
   }
-
-  .title {
-    width: 430px;
-    height: 140px;
-    position: relative;
-    left: 150px;
-  }
-
+  
   .logo {
-    width: 420px;
-    height: 120px;
+    max-width: 150px;
+    margin-top: 250px;
+    position: absolute;
+    left: 730px;
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+  
+    margin-top: 140px;
     position: relative;
-    right: 230px;
+    left: 650px;
+    max-width: 300px; 
+    max-height: 20px;
   }
 
-  #subtitle {
+  .button-game {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+    margin-top: 40px;
+    /* margin-top: -100px; Quando language tiver habilitado */
     position: relative;
-    left: 520px;
+    left: 625px;
   }
 
   .button-game-progress {
-    width: 300px;
-    height: 25px;
+    width: 320px;
+    height: 60px;
     cursor: pointer;
   
-    max-width: 250px;
+    max-width: 300px;
     margin-top: 40px;
     position: relative;
-    left: 500px;
-  }
-
-  .boxContainer {
-    display: none;
-    justify-content: center;
-    
-    margin-top: 40px;
-    position: relative;
-    right: 150px;
-  }
-
-  .box {
-    display: inline-block;
-    width: 80px; 
-    height: 80px; 
-    border: 1px solid #ccc;
-    padding: 5px; 
-    margin-right: 20px;
-    background-color: #f9f9f9;
-    margin-top: 40px;
-    position: relative;
-    top: -150px;
-    left: 110px;
-    border-radius: 0; 
+    left: 625px;
   }
   
-  .button-search {
-    display: none;
-    width: 290px;
-    height: 50px;
-  
-    top: -80px;
+  .info-button {
+    max-width: 70px;
+    max-height: 70px;
     position: relative;
-    left: 525px;
-    overflow: hidden;
-    background: url('../css/Assets/searchButton.png') no-repeat center center;
-    background-size: cover;
-  }
-
-  .congrats-block {
+    top: 5px;
+    left: 65px;
+    border: none;
     cursor: pointer;
-    background: linear-gradient(135deg, #f0f0f0, #4CAF50);
-    border: 2px solid #4CAF50;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-    top: -160px;
-    position: relative;
-    left: 460px;
-    transition: all 0.3s ease-in-out;
+  
+    transition: 0.3s ease, transform 0.3s ease;
   }
 }
+
+/* Responsivity for PC */
+@media (min-width: 1720px) {
+
+  .containerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-top: 250px;
+    position: absolute;
+    left: 770px;
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+  
+    margin-top: 140px;
+    position: relative;
+    left: 680px;
+    max-width: 300px; 
+    max-height: 20px;
+  }
+
+  .button-game {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+    margin-top: 40px;
+    /* margin-top: -100px; Quando language tiver habilitado */
+    position: relative;
+    left: 675px;
+  }
+
+  .button-game-progress {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+  
+    max-width: 300px;
+    margin-top: 40px;
+    position: relative;
+    left: 675px;
+  }
+  
+  .info-button {
+    max-width: 70px;
+    max-height: 70px;
+    position: relative;
+    top: 5px;
+    left: 105px;
+    border: none;
+    cursor: pointer;
+  
+    transition: 0.3s ease, transform 0.3s ease;
+  }
+}
+
+/* Responsivity for PC */
+@media (min-width: 1820px) {
+
+  .containerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-top: 250px;
+    position: absolute;
+    left: 820px;
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+  
+    margin-top: 140px;
+    position: relative;
+    left: 730px;
+    max-width: 300px; 
+    max-height: 20px;
+  }
+
+  .button-game {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+    margin-top: 40px;
+    /* margin-top: -100px; Quando language tiver habilitado */
+    position: relative;
+    left: 715px;
+  }
+
+  .button-game-progress {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+  
+    max-width: 300px;
+    margin-top: 40px;
+    position: relative;
+    left: 715px;
+  }
+  
+  .info-button {
+    max-width: 70px;
+    max-height: 70px;
+    position: relative;
+    top: 5px;
+    left: 145px;
+    border: none;
+    cursor: pointer;
+  
+    transition: 0.3s ease, transform 0.3s ease;
+  }
+}
+
+/* Responsivity for PC */
+@media (min-width: 1920px) {
+
+  .containerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-top: 250px;
+    position: absolute;
+    left: 850px;
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+  
+    margin-top: 140px;
+    position: relative;
+    left: 760px;
+    max-width: 300px; 
+    max-height: 20px;
+  }
+
+  .button-game {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+    margin-top: 40px;
+    /* margin-top: -100px; Quando language tiver habilitado */
+    position: relative;
+    left: 765px;
+  }
+
+  .button-game-progress {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+  
+    max-width: 300px;
+    margin-top: 40px;
+    position: relative;
+    left: 765px;
+  }
+  
+  .info-button {
+    max-width: 70px;
+    max-height: 70px;
+    position: relative;
+    top: 5px;
+    left: 175px;
+    border: none;
+    cursor: pointer;
+  
+    transition: 0.3s ease, transform 0.3s ease;
+  }
+}
+
+/* Responsivity for PC */
+@media (min-width: 2000px) {
+
+  .containerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-top: 250px;
+    position: absolute;
+    left: 890px;
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+  
+    margin-top: 140px;
+    position: relative;
+    left: 790px;
+    max-width: 300px; 
+    max-height: 20px;
+  }
+
+  .button-game {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+    margin-top: 40px;
+    /* margin-top: -100px; Quando language tiver habilitado */
+    position: relative;
+    left: 800px;
+  }
+
+  .button-game-progress {
+    width: 320px;
+    height: 60px;
+    cursor: pointer;
+  
+    max-width: 300px;
+    margin-top: 40px;
+    position: relative;
+    left: 800px;
+  }
+  
+  .info-button {
+    max-width: 70px;
+    max-height: 70px;
+    position: relative;
+    top: 5px;
+    left: 205px;
+    border: none;
+    cursor: pointer;
+  
+    transition: 0.3s ease, transform 0.3s ease;
+  }
+}
+
+
 
 
