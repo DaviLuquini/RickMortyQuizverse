@@ -814,6 +814,169 @@ body {
 }
 
 /* Responsivity for PC */
+@media (min-width: 1366px) {
+
+  .containerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85px; /* 100px * 0.85 */
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 127.5px; /* 150px * 0.85 */
+    margin-top: 212.5px; /* 250px * 0.85 */
+    position: absolute;
+    left: 590.5px; /* 730px * 0.85 */
+  }
+  
+  #subtitle {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 17px; /* 20px * 0.85 */
+  
+    margin-top: 119px; /* 140px * 0.85 */
+    position: relative;
+    left: 520.5px; /* 650px * 0.85 */
+    max-width: 255px; /* 300px * 0.85 */
+    max-height: 17px; /* 20px * 0.85 */
+  }
+
+  .button-game {
+    width: 240px; 
+    height: 35px; 
+    cursor: pointer;
+    margin-top: 40px; /* 40px * 0.85 */
+    /* margin-top: -85px; Quando language tiver habilitado (ajustado proporcionalmente) */
+    position: relative;
+    left: 480px; /* 625px * 0.85 */
+  }
+
+.button-description {
+  position: absolute;
+  bottom: -10px; 
+  left: 100px; 
+  color: #fff;
+}
+
+  .button-game-progress {
+    width: 240px; 
+    height: 35px; 
+    cursor: pointer;
+  
+    max-width: 255px; /* 300px * 0.85 */
+    margin-top: 50px; /* 40px * 0.85 */
+    position: relative;
+    left: 480px; /* 625px * 0.85 */
+  }
+  
+  .info-button {
+    max-width: 50px;
+    max-height: 50px;
+    position: relative;
+    top: -250px; /* 5px * 0.85 */
+    left: -365px; /* 65px * 0.85 */
+    border: none;
+    cursor: pointer;
+  
+    transition: 0.3s ease, transform 0.3s ease;
+  }
+  
+  #userName {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20.4px; /* 24px * 0.85 */
+    font-weight: bold;
+    color: #ffffff;
+    position: absolute; 
+    top: 68px; /* 80px * 0.85 */
+  }
+  
+  #login-icon {
+    cursor: pointer;
+    display: inline-block;
+    max-width: 68px; /* 80px * 0.85 */
+    position: absolute; 
+    top: 42.5px; /* 50px * 0.85 */
+    left: 297.5px; /* 350px * 0.85 */
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  #login-icon:hover {
+    transform: scale(1.15); 
+  }
+  
+  .loginDropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 170px; /* 200px * 0.85 */
+    box-shadow: 0px 6.8px 13.6px 0px rgba(0, 0, 0, 0.1); /* 0px 8px 16px * 0.85 */
+    padding: 17px; /* 20px * 0.85 */
+    z-index: 1;
+    border-radius: 6.8px; /* 8px * 0.85 */
+    border: 1px solid #ddd;
+  
+    margin-top: 12.75px; /* 15px * 0.85 */
+    left: 246.5px; /* 290px * 0.85 */
+  }
+  
+  .loginDropdown-content button {
+    display: block;
+    width: 100%;
+    padding: 10.2px 13.6px; /* 12px 16px * 0.85 */
+    margin-top: 8.5px; /* 10px * 0.85 */
+    border: none;
+    border-radius: 3.4px; /* 4px * 0.85 */
+    background-color: #28a745; 
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .loginDropdown-content button:first-child {
+    margin-top: 0;
+  }
+  
+  .loginDropdown-content button:hover {
+    background-color: #218838; 
+    transform: translateY(-1.7px); /* -2px * 0.85 */
+  }
+  
+  .profileImageBox {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 212.5px; /* 250px * 0.85 */
+    box-shadow: 0px 6.8px 13.6px 0px rgba(0, 0, 0, 0.1); /* 0px 8px 16px * 0.85 */
+    padding: 17px; /* 20px * 0.85 */
+    z-index: 1;
+    border-radius: 6.8px; /* 8px * 0.85 */
+    border: 1px solid #ddd;
+    margin-top: 8.5px; /* 10px * 0.85 */
+    left: 148.75px; /* 175px * 0.85 */
+  }
+  
+  .selectableImage {
+    width: 59.5px; /* 70px * 0.85 */
+    height: 59.5px; /* 70px * 0.85 */
+    border-radius: 42.5%; /* 50% remains the same */
+    cursor: pointer;
+    margin-right: 8.5px; /* 10px * 0.85 */
+  }
+  
+  #gamePoints {
+    left: 280px;
+  }
+  .button-search {
+    left: 505px;
+  }
+  
+
+}
+
+
 @media (min-width: 1600px) {
 
   .containerLogo {
