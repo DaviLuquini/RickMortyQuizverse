@@ -1,6 +1,7 @@
 RickMortyQuizverse 🟩
 
 RickMortyQuizverse, or RickMortyDle, is a Dle game based on the series Rick and Morty, with strong inspiration from the famous game Loldle.
+The API https://rickandmortyapi.com/ was consumed to obtain the characters and information about characters.
 
 👉 Play now: https://rick-morty-quizverse.vercel.app/ <br>
 (Backend isn't working because I haven't found any way yet to deploy the backend and database for lifetime and 100% free.)
@@ -15,7 +16,7 @@ Docker Containers
 Used SOLID and DDD for backend architecture and design.
 
 The site features login and registration functionalities, using JWT for session verification, with persistent user image and user points data.
-Screenshots of the Site
+Screenshots of the Site 
 
 Home page
 ![Captura de tela 2024-11-21 184526](https://github.com/user-attachments/assets/5310a6bf-7109-4b25-b6f6-72444dc72f88)
