@@ -19,6 +19,7 @@ Docker Containers
 Used SOLID and DDD for backend architecture and design.
 
 The site features login and registration functionalities, using JWT for session verification, with persistent user image and user points data.
+<br>
 Screenshots of the Site 
 
 Home page
