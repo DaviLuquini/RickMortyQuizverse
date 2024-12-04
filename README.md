@@ -8,9 +8,12 @@ The API https://rickandmortyapi.com/ was consumed to obtain the characters and i
 
 Built with:
 HTML, CSS, JavaScript
+<br>
 C#, .NET
 ASP.NET
+<br>
 Postgresql
+<br>
 Docker Containers
 
 Used SOLID and DDD for backend architecture and design.
