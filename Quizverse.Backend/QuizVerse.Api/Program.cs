@@ -61,7 +61,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // Middleware de autenticação deve ser adicionado antes da autorização
 app.UseAuthentication(); // Habilita autenticação
