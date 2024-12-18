@@ -1,6 +1,4 @@
-﻿
-
-using Npgsql;
+﻿using Npgsql;
 
 namespace QuizVerse.Platform.Infrastructure.Database
 {
@@ -22,14 +20,14 @@ namespace QuizVerse.Platform.Infrastructure.Database
 
             string connectionString = $"Host={host};Port=5432;Database={database};Username={username};Password={password}";
 
-            var connection = new NpgsqlConnection(connectionString);
-            connection.Open();
-
+            // Atribuir a variável à propriedade Connection
+            Connection = new NpgsqlConnection(connectionString);
+            Connection.Open();
         }
 
         public void Dispose()
         {
-            Connection.Dispose();
+            Connection?.Dispose();
         }
     }
 }
