@@ -20,7 +20,6 @@ export async function getBestPlayers() {
         }));
 
         const sortedUsers = users.sort((a, b) => b.userpoints - a.userpoints);
-        console.log(sortedUsers);
 
         return sortedUsers;
         

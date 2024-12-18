@@ -20,7 +20,6 @@ namespace QuizVerse.Platform.Infrastructure.Database
 
             string connectionString = $"Host={host};Port=5432;Database={database};Username={username};Password={password}";
 
-            // Atribuir a variável à propriedade Connection
             Connection = new NpgsqlConnection(connectionString);
             Connection.Open();
         }

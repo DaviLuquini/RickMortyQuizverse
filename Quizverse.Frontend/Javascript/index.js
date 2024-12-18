@@ -201,7 +201,6 @@ function GetMostFamousCharacters(characters, count) {
         }
     
         getCorrectCharacter();
-        console.log(correctCharacter.name);
     }
 
     async function updateAvailableCharacters(character) {
