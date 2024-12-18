@@ -15,8 +15,16 @@ namespace QuizVerse.Platform.Infrastructure.Database
             //DOCKER: 
             //Connection = new NpgsqlConnection("Host=db;Port=5432;Database=quizverse_users;User Id=postgres;Password=postgres");
             //Northflank
-            Connection = new NpgsqlConnection("Host=primary.rickmortyquizversedb--2fzvm2y2h546.addon.code.run;Port=5432;Database=_2f532a2137a3;Username=_1492df07e1525389;Password=_69c9cd9e4026767900366c464b03f6");
-            Connection.Open();
+            string host = Environment.GetEnvironmentVariable("HOST");
+            string database = Environment.GetEnvironmentVariable("DATABASE");
+            string username = Environment.GetEnvironmentVariable("USERNAME");
+            string password = Environment.GetEnvironmentVariable("PASSWORD");
+
+            string connectionString = $"Host={host};Port=5432;Database={database};Username={username};Password={password}";
+
+            var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
         }
 
         public void Dispose()

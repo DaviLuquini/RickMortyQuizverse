@@ -27,7 +27,7 @@ export async function calculateAllTimeGamePoints(userPoints) {
     allTimeGamePoints += userPoints;
 
     try {
-    const response = await fetch(`http://localhost:8081/api/UserPoints?userName=${encodeURIComponent(username)}&newUserPoints=${allTimeGamePoints}`, {
+    const response = await fetch(`https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/UserPoints?userName=${encodeURIComponent(username)}&newUserPoints=${allTimeGamePoints}`, {
         method: 'PUT',
         headers: {
             'Accept': '*/*',

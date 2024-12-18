@@ -30,7 +30,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
       loadingElement.style.display = 'block';
       buttonText.classList.add('hide-text');
 
-      const response = await fetch('http://localhost:8081/api/Login', {
+      const response = await fetch('https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
