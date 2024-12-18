@@ -1,6 +1,6 @@
 export async function getBestPlayers() {
     try {
-        const response = await fetch(`http://localhost:8081/api/UserPoints/all`, {
+        const response = await fetch(`https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/UserPoints/all`, {
             method: 'GET',
             headers: {
                 'Accept': '*/*',

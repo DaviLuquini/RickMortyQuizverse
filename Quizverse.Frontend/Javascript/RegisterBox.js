@@ -46,7 +46,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
     loadingElement.style.display = 'block';
     buttonText.classList.add('hide-text');
 
-    const response = await fetch('http://localhost:8081/api/register', {
+    const response = await fetch('https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/register', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
