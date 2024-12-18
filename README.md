@@ -4,7 +4,7 @@ RickMortyQuizverse, or RickMortyDle, is a Dle game based on the series Rick and 
 The API https://rickandmortyapi.com/ was consumed to obtain the characters and information about characters.
 
 👉 Play now: https://rick-morty-quizverse.vercel.app/ <br>
-(Backend isn't working because I haven't found any way yet to deploy the backend and database for lifetime and 100% free.)
+Backend 100% functioning thanks to Northflank!
 
 Built with:
 HTML, CSS, JavaScript
