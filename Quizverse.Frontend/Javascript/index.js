@@ -21,16 +21,13 @@ let remainingTries;
 
 const hintBall1 = document.querySelector('.hint-ball-1');
 const hintBall2 = document.querySelector('.hint-ball-2');
-const languageSelector = document.querySelector('.language-selector');
-const languageToggle = document.querySelector('.language-toggle');
-const languageOptions = document.querySelectorAll('.language-options div');
 var loginWarning = document.getElementById('login-warning');
 var tableTitlePlayers = document.getElementById('tableTitle');
 var playersTable = document.getElementById('playersTable');
 
 async function getSessionInfo() {
     const token = localStorage.getItem('token');
-    const response = await fetch('https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/Login/check-session', {
+    const response = await fetch('https://p01--rickmortyquizverse--2fzvm2y2h546.code.run/api/Login/chec10k-session', {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -63,25 +60,6 @@ async function getSessionInfo() {
 }
 
 getSessionInfo();
-
-//Language Selector
-languageToggle.addEventListener('click', () => {
-    languageSelector.classList.toggle('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', () => {
-        const selectedLanguage = option.innerText;
-        languageToggle.innerText = selectedLanguage;
-        languageSelector.classList.remove('active');
-    });
-});
-
-document.addEventListener('click', (event) => {
-    if (!languageSelector.contains(event.target)) {
-        languageSelector.classList.remove('active');
-    }
-});
 
 async function getAllCharactersApi() {
     const allCharacters = [];
@@ -201,7 +179,6 @@ function GetMostFamousCharacters(characters, count) {
         }
     
         getCorrectCharacter();
-        console.log(correctCharacter.name);
     }
 
     async function updateAvailableCharacters(character) {
@@ -290,6 +267,9 @@ function GetMostFamousCharacters(characters, count) {
         buttonGameProgress.style.display = 'none';
         tableTitle.style.display = 'none';
         playersTable.style.display = 'none';
+        gamePoints.style.display = 'none';
+        loginWarningBox.style.display = 'none';
+        allTimeGamePointsBox.style.display = 'none';
 
         subtitle.style.visibility = 'hidden';
     });
@@ -297,8 +277,10 @@ function GetMostFamousCharacters(characters, count) {
     gameModes.forEach(gameMode => {
         gameMode.addEventListener('click', function () {
         gameModesContainer.style.display = 'none';
+        buttonHowToPlay.style.display = 'none';
         buttonSearch.style.display = 'block';
         gamePoints.style.display = 'block';
+        buttonBack.style.top = '-40vh';
         document.getElementById('gamePoints').innerText = `Current Points: 100`;
     });
 });
@@ -310,6 +292,7 @@ function GetMostFamousCharacters(characters, count) {
         }
         buttonSearch.style.display = 'none';
         buttonBack.style.display = 'none';
+        buttonBack.style.top = '-6vh';
         buttonHowToPlay.style.display = 'none';
         gameModesContainer.style.display = 'none';
         hintBox.style.display = 'none';
@@ -318,6 +301,8 @@ function GetMostFamousCharacters(characters, count) {
         buttonGameProgress.style.display = 'block';
         tableTitle.style.display = 'block';
         buttonInfo.style.display = 'block';
+        loginWarningBox.style.display = 'block';
+        allTimeGamePointsBox.style.display = 'block';
        
         subtitle.style.visibility = 'visible';
 
